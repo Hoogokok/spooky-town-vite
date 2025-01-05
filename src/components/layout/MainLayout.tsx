@@ -11,9 +11,9 @@ function MainLayout({ children }: MainLayoutProps) {
     return (
         <div className="container">
             <SidebarNav />
-            <div className="content">
+            <main className="content">
                 {children}
-            </div>
+            </main>
             <MobileNav />
         </div>
     )

@@ -1,6 +1,6 @@
 @import '../../styles/tokens/index.css';
 
-.header {
+.mobileHeader {
     display: none;
     background-color: var(--color-surface);
     padding: var(--spacing-header);
@@ -11,14 +11,14 @@
     z-index: var(--z-index-fixed);
   }
   
-  .logo {
+  .mobileLogo {
     font-size: var(--font-size-lg);
     color: var(--color-primary);
     text-align: center;
     line-height: 1;
   }
   
-  .nav {
+  .mobileNav {
     display: none;
     justify-content: space-between;
     align-items: center;
@@ -32,7 +32,7 @@
     box-shadow: var(--shadow-nav);
   }
   
-  .icon {
+  .mobileIcon {
     width: var(--spacing-8);
     height: var(--spacing-8);
     margin-bottom: var(--spacing-1);
@@ -40,8 +40,8 @@
     object-fit: cover;
   }
   
-  .nav a,
-  .nav .profileButton {
+  .mobileNav a,
+  .mobileNav .profileButton {
     color: var(--color-text-secondary);
     text-decoration: none;
     font-size: var(--font-size-xs);
@@ -54,16 +54,16 @@
     line-height: var(--line-height-none);
   }
   
-  .nav a:hover {
+  .mobileNav a:hover {
     color: var(--color-text-primary);
   }
   
   @media (max-width: 768px) {
-    .header {
+    .mobileHeader {
       display: block !important;
     }
   
-    .nav {
+    .mobileNav {
       display: flex !important;
     }
   }
