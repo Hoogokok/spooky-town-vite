@@ -1,16 +1,16 @@
-import { MovieResponse } from './types/movie'
+import { MovieListResponse } from './api/types/movieResponses'
 import { Link } from 'react-router-dom'
 import './main.css'
 
 interface MovieListProps {
-    movies: MovieResponse[]
+    movies: MovieListResponse[]
     type: 'released' | 'upcoming'
 }
 
 export default function MovieList({ movies, type }: MovieListProps) {
     return (
         <div className="content">
-            {movies.map((movie: MovieResponse) => (
+            {movies.map((movie: MovieListResponse) => (
                 <div key={movie.id} className="movieItem">
                     <img
                         alt={movie.title}
