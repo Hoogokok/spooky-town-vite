@@ -8,12 +8,13 @@ function Home() {
     const { data: upcoming = [] } = useQuery<MovieListResponse[]>({
         queryKey: ['movies', 'upcoming'],
         queryFn: movieApi.fetchUpcomingMovies,
-        staleTime: 5 * 60 * 1000, // 5분간 캐시 유지
+        staleTime: 24 * 60 * 60 * 1000, // 24시간 캐시 유지
     })
 
     const { data: nowPlaying = [] } = useQuery<MovieListResponse[]>({
         queryKey: ['movies', 'nowPlaying'],
-        queryFn: movieApi.fetchNowPlayingMovies
+        queryFn: movieApi.fetchNowPlayingMovies,
+        staleTime: 24 * 60 * 60 * 1000, // 24시간 캐시 유지
     })
 
     return (
