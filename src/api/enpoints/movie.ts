@@ -1,4 +1,4 @@
-import { MovieResponse } from '../types/movie'
+import { MovieResponse } from '../../types/movie'
 
 const BASE_URL = import.meta.env.VITE_MOVIE_API
 const API_KEY = import.meta.env.VITE_MOVIE_API_KEY

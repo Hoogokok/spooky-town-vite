@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import './main.css'
-import { movieApi } from './api/movie'
+import { movieApi } from './api/enpoints/movie'
 import { MovieResponse } from './types/movie'
 import MovieList from './MovieList'
 
