@@ -1,4 +1,7 @@
 import { ReactNode } from 'react'
+import './mainLayout.css'
+import SidebarNav from './SidebarNav'
+import MobileNav from './MobileNav'
 
 interface MainLayoutProps {
     children: ReactNode
@@ -6,18 +9,12 @@ interface MainLayoutProps {
 
 function MainLayout({ children }: MainLayoutProps) {
     return (
-        <div className="layout">
-            <header className="header">
-                {/* 헤더 내용은 나중에 추가 */}
-            </header>
-
-            <main className="main-content">
+        <div className="container">
+            <SidebarNav />
+            <div className="content">
                 {children}
-            </main>
-
-            <footer className="footer">
-                {/* 푸터 내용은 나중에 추가 */}
-            </footer>
+            </div>
+            <MobileNav />
         </div>
     )
 }
