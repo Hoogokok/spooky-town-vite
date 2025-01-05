@@ -1,0 +1,26 @@
+@import '../../styles/tokens/index.css';
+    
+.container {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--color-background);
+    position: relative;
+    overflow: visible;
+  }
+  
+  .content {
+    flex: 1;
+    padding: var(--spacing-5);
+    overflow-y: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .content {
+      padding-top: var(--spacing-header-mobile);
+      padding-bottom: var(--spacing-nav-mobile);
+    }
+  }
