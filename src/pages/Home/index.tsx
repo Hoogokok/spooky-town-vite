@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import './main.css'
-import { movieApi } from './api/enpoints/movie'
-import { MovieListResponse } from './api/types/movieResponses'
+import './style.css'
+import { movieApi } from '../../api/enpoints/movie'
+import { MovieListResponse } from '../../api/types/movieResponses'
 import MovieList from './MovieList'
 
 function Home() {

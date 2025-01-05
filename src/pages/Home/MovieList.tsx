@@ -1,6 +1,6 @@
-import { MovieListResponse } from './api/types/movieResponses'
+import { MovieListResponse } from '../../api/types/movieResponses'
 import { Link } from 'react-router-dom'
-import './main.css'
+import './style.css'
 
 interface MovieListProps {
     movies: MovieListResponse[]
