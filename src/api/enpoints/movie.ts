@@ -1,4 +1,4 @@
-import { MovieResponse } from '../types/movie'
+import { MovieListResponse } from '../types/movieResponses';
 
 const BASE_URL = import.meta.env.VITE_MOVIE_API
 const API_KEY = import.meta.env.VITE_MOVIE_API_KEY
@@ -18,11 +18,11 @@ async function fetchMovies<T>(endpoint: string): Promise<T> {
 }
 
 export const movieApi = {
-    fetchUpcomingMovies: async (): Promise<MovieResponse[]> => {
-        return fetchMovies<MovieResponse[]>('/movies/theater/upcoming');
+    fetchUpcomingMovies: async (): Promise<MovieListResponse[]> => {
+        return fetchMovies<MovieListResponse[]>('/movies/theater/upcoming');
     },
 
-    fetchNowPlayingMovies: async (): Promise<MovieResponse[]> => {
-        return fetchMovies<MovieResponse[]>('/movies/theater/released');
+    fetchNowPlayingMovies: async (): Promise<MovieListResponse[]> => {
+        return fetchMovies<MovieListResponse[]>('/movies/theater/released');
     }
 } 

@@ -1,7 +1,7 @@
 import './App.css'
-import Home from './Home'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Home from './pages/Home'
 
 const queryClient = new QueryClient()
 
