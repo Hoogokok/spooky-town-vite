@@ -1,0 +1,13 @@
+@import './colors.css';
+@import './typography.css';
+@import './layout.css';
+@import './spacing.css';
+@import './effects.css';
+@import './radius.css';
+
+/* 기본 리셋 및 설정 */
+:root {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} 

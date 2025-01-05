@@ -1,0 +1,27 @@
+:root {
+  /* 레이아웃 크기 */
+  --width-sidebar: 150px;
+  --width-nav-item: 60px;
+  --width-dropdown: 200px;
+  --width-mobile-dropdown: 120px;
+  
+  /* 컨텐츠 크기 */
+  --width-movie-item: 180px;
+  --width-movie-item-tablet: 200px;
+  --width-movie-item-desktop: 220px;
+  --width-video-item: 300px;
+  --width-video-item-mobile: 250px;
+  --width-video-item-desktop: 320px;
+  
+  /* z-index 레이어 */
+  --z-index-dropdown: 1000;
+  --z-index-fixed: 1030;
+  --z-index-modal: 1050;
+  
+  /* 반응형 */
+  --breakpoint-mobile: 768px;
+  --breakpoint-tablet: 1024px;
+  
+  /* 네비게이션 크기 */
+  --spacing-nav-mobile: 60px;  /* 모바일 네비게이션 높이 */
+} 

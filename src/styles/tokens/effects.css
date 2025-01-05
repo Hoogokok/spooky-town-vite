@@ -1,0 +1,23 @@
+:root {
+  /* 그림자 효과 */
+  --shadow-nav: 0 -2px 10px var(--color-shadow);
+  --shadow-dropdown: 0 2px 10px var(--color-shadow);
+  --shadow-modal: 0 4px 20px var(--color-shadow);
+  
+  /* 블러 효과 */
+  --blur-backdrop: blur(8px);
+  
+  /* 배경 투명도 */
+  --bg-opacity-dropdown: rgba(31, 31, 31, 0.8);
+  
+  /* 애니메이션 */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+  
+  /* z-index 레이어 */
+  --z-index-dropdown: 1000;
+  --z-index-fixed: 1030;
+  --z-index-modal: 1050;
+  --z-index-tooltip: 1060;
+} 

@@ -1,0 +1,20 @@
+:root {
+  /* 기본 색상 */
+  --color-primary: #cd0812;
+  --color-error: #ff1a1a;
+  --color-success: #4CAF50;
+  --color-button: #cd0812;
+  --color-button-hover: #a3060e;
+  --color-link: #00b3e6;        /* 링크 색상 */
+  --color-link-hover: #00ccff;  /* 링크 호버 색상 */
+  --color-background: #0D0D0D;
+  --color-surface: #1f1f1f;
+  
+  /* 텍스트 색상 */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a5a5a5;
+  
+  /* 상태 색상 */
+  --color-hover: rgba(255, 255, 255, 0.1);
+  --color-shadow: rgba(0, 0, 0, 0.3);
+} 
