@@ -7,7 +7,7 @@ export const navItems = [
     },
     {
         href: '/movies',
-        icon: '/icons/movie.svg',
+        icon: '/icons/search.svg',
         alt: '영화 아이콘',
         label: '영화'
     }
