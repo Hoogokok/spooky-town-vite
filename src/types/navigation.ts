@@ -3,9 +3,4 @@ export interface NavItem {
     icon: string;
     alt: string;
     label: string;
-}
-
-export interface NavigationProps {
-    items: NavItem[];
-    variant: 'desktop' | 'mobile';
 } 

@@ -1,4 +1,6 @@
-export const navItems = [
+import { NavItem } from '../types/navigation'
+
+export const navItems: NavItem[] = [
     {
         href: '/',
         icon: '/icons/home.svg',
@@ -13,7 +15,7 @@ export const navItems = [
     }
 ]
 
-export const loginItem = {
+export const loginItem: NavItem = {
     href: '/login',
     icon: '/icons/login.svg',
     alt: '로그인 아이콘',
