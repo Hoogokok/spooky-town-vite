@@ -2,7 +2,7 @@
 
 .mobileHeader {
     display: none;
-    background-color: var(--color-surface);
+    background-color: transparent;
     padding: var(--spacing-header);
     position: fixed;
     top: 0;
