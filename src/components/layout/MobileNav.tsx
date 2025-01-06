@@ -12,9 +12,12 @@ function MobileNav() {
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
-            // 스크롤 방향 감지
-            if (currentScrollY > lastScrollY) {
+            // 스크롤이 끝에 도달했거나 맨 위일 때는 항상 표시
+            if (currentScrollY >= maxScroll - 10 || currentScrollY <= 0) {
+                setIsHidden(false);
+            } else if (currentScrollY > lastScrollY) {
                 // 아래로 스크롤
                 setIsHidden(true);
             } else {
