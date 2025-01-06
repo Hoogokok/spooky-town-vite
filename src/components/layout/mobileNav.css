@@ -51,9 +51,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
+    text-align: left;
     width: var(--width-nav-item);
     line-height: var(--line-height-none);
+    padding-left: var(--spacing-4);
   }
   
   .mobileNav a:hover {
