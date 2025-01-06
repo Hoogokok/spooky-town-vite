@@ -42,8 +42,8 @@
     object-fit: cover;
   }
   
-  .mobileNav a,
-  .mobileNav .profileButton {
+  .mobileNav a {
+    position: relative;
     color: var(--color-text-secondary);
     text-decoration: none;
     font-size: var(--font-size-xs);
@@ -51,14 +51,23 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: left;
+    text-align: center;
     width: var(--width-nav-item);
     line-height: var(--line-height-none);
-    padding-left: var(--spacing-4);
+    padding: 0;
   }
   
   .mobileNav a:hover {
     color: var(--color-text-primary);
+  }
+  
+  .mobileNav a.active {
+    color: var(--color-nav-active);
+    font-weight: 500;
+  }
+  
+  .mobileNav a.active .mobileIcon {
+    filter: brightness(1.2);
   }
   
   @media (max-width: 768px) {
