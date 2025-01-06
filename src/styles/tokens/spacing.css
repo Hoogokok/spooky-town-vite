@@ -14,4 +14,6 @@
   --spacing-nav-horizontal: 20px;
   --spacing-header: 15px;
   --spacing-header-mobile: 90px;
+  --spacing-logo-top: var(--spacing-6);
+  --spacing-logo-bottom: var(--spacing-5);
 } 
