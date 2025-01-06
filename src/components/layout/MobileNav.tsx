@@ -14,27 +14,35 @@ function MobileNav() {
 
     return (
         <>
-            <header className="mobileHeader">
+            <header className="mobileHeader" role="banner">
                 <div className="mobileLogo">
                     <h1>스푸키 타운</h1>
                 </div>
             </header>
-            <nav className={`mobileNav ${isHidden ? 'hidden' : ''}`}>
+            <nav
+                className={`mobileNav ${isHidden ? 'hidden' : ''}`}
+                role="navigation"
+                aria-label="모바일 메인 네비게이션"
+            >
                 {navItems.map((item) => (
                     <Link
                         key={item.href}
                         to={item.href}
                         className={isActive(item.href) ? 'active' : ''}
+                        aria-current={isActive(item.href) ? 'page' : undefined}
+                        role="menuitem"
                     >
-                        <img src={item.icon} alt={item.alt} className="mobileIcon" />
+                        <img src={item.icon} alt="" className="mobileIcon" aria-hidden="true" />
                         <span>{item.label}</span>
                     </Link>
                 ))}
                 <Link
                     to={loginItem.href}
                     className={isActive(loginItem.href) ? 'active' : ''}
+                    aria-current={isActive(loginItem.href) ? 'page' : undefined}
+                    role="menuitem"
                 >
-                    <img src={loginItem.icon} alt={loginItem.alt} className="mobileIcon" />
+                    <img src={loginItem.icon} alt="" className="mobileIcon" aria-hidden="true" />
                     <span>{loginItem.label}</span>
                 </Link>
             </nav>
