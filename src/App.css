@@ -23,3 +23,9 @@
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-text-primary);
 }
+
+/* 선택 영역 스타일 */
+::selection {
+    background-color: var(--color-primary);
+    color: var(--color-text-primary);
+}

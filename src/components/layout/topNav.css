@@ -1,0 +1,98 @@
+@import '../../styles/tokens/index.css';
+
+.topNav {
+    background-color: transparent;
+    padding: 0;
+    position: fixed;
+    width: 100%;
+    z-index: var(--z-index-fixed);
+    transition: all 0.3s ease;
+}
+
+.navContent {
+    max-width: var(--width-content);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* 스크롤 시 적용되는 스타일 */
+.topNav.scrolled {
+    background-color: transparent;
+    box-shadow: var(--shadow-nav-subtle);
+}
+
+.navContent.scrolled {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-2) var(--spacing-4);
+}
+
+.navContent.scrolled .logo {
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: auto;
+    font-size: var(--font-size-lg);
+}
+
+.navContent.scrolled .menu {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.navContent.scrolled .menu li a {
+    padding: var(--spacing-2);
+}
+
+.logo {
+    font-size: var(--font-size-2xl);
+    font-weight: bold;
+    color: var(--color-primary);
+    font-family: var(--font-family-display);
+    line-height: 1.2;
+    margin-top: var(--spacing-logo-top);
+    margin-bottom: var(--spacing-logo-bottom);
+    padding-bottom: var(--spacing-2);
+    border-bottom: 1px solid var(--color-divider);
+    width: 100%;
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-6);
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+}
+
+.menu li a {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-md);
+}
+
+.menu li a:hover {
+    color: var(--color-text-primary);
+}
+
+.icon {
+    width: var(--spacing-6);
+    height: var(--spacing-6);
+    border-radius: var(--radius-base);
+}
+
+@media (max-width: 768px) {
+    .topNav {
+        display: none;
+    }
+} 
