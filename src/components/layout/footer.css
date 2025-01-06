@@ -1,7 +1,7 @@
 .footer {
     background-color: var(--color-surface);
     padding: var(--spacing-5);
-    margin-top: auto;  /* 항상 하단에 위치 */
+    margin-top: auto;
 }
 
 .footerContent {
@@ -30,16 +30,21 @@
 @media (max-width: 768px) {
     .footerContent {
         flex-direction: column;
-        gap: var(--spacing-4);
+        gap: var(--spacing-3);
         text-align: center;
     }
 
     .footerNav {
         display: flex;
-        gap: var(--spacing-4);
+        gap: var(--spacing-3);
     }
 
     .footerNav a {
         margin-left: 0;
+    }
+
+    .footer {
+        padding-bottom: calc(var(--spacing-5) + var(--height-mobile-nav));
+        margin-bottom: 0;
     }
 } 

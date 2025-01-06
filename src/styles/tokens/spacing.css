@@ -16,4 +16,7 @@
   --spacing-header-mobile: 90px;
   --spacing-logo-top: var(--spacing-6);
   --spacing-logo-bottom: var(--spacing-5);
+  
+  /* 모바일 네비게이션 관련 */
+  --height-mobile-nav: 64px;  /* 모바일 네비게이션 높이 */
 } 

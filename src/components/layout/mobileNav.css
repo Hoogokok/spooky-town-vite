@@ -32,6 +32,13 @@
     right: 0;
     z-index: var(--z-index-fixed);
     box-shadow: var(--shadow-nav);
+    transform: translateY(0);
+    transition: var(--transition-nav);
+  }
+  
+  .mobileNav.hidden {
+    transform: translateY(100%);
+    visibility: visible;
   }
   
   .mobileIcon {
@@ -42,8 +49,8 @@
     object-fit: cover;
   }
   
-  .mobileNav a,
-  .mobileNav .profileButton {
+  .mobileNav a {
+    position: relative;
     color: var(--color-text-secondary);
     text-decoration: none;
     font-size: var(--font-size-xs);
@@ -51,14 +58,23 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: left;
+    text-align: center;
     width: var(--width-nav-item);
     line-height: var(--line-height-none);
-    padding-left: var(--spacing-4);
+    padding: 0;
   }
   
   .mobileNav a:hover {
     color: var(--color-text-primary);
+  }
+  
+  .mobileNav a.active {
+    color: var(--color-nav-active);
+    font-weight: 500;
+  }
+  
+  .mobileNav a.active .mobileIcon {
+    filter: brightness(1.2);
   }
   
   @media (max-width: 768px) {
@@ -69,4 +85,32 @@
     .mobileNav {
       display: flex !important;
     }
+  }
+  
+  /* 터치 디바이스 대응 */
+  @media (hover: none) and (pointer: coarse) {
+    .mobileNav {
+        will-change: transform;
+    }
+  }
+  
+  /* 키보드 포커스 스타일 */
+  .mobileNav a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+    border-radius: var(--radius-base);
+  }
+  
+  /* 스크린리더를 위한 현재 페이지 표시 */
+  .mobileNav a[aria-current="page"]::before {
+    content: "현재 페이지:";
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
