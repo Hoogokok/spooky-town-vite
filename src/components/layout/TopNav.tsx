@@ -1,11 +1,24 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './topNav.css'
 import { navItems, loginItem } from '../../config/navigation'
 
 function TopNav() {
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY;
+            setIsScrolled(scrollPosition > 0);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <nav className="topNav">
-            <div className="navContent">
+        <nav className={`topNav ${isScrolled ? 'scrolled' : ''}`}>
+            <div className={`navContent ${isScrolled ? 'scrolled' : ''}`}>
                 <div className="logo">
                     <h1>스푸키 타운</h1>
                 </div>
@@ -27,7 +40,7 @@ function TopNav() {
                 </ul>
             </div>
         </nav>
-    )
+    );
 }
 
-export default TopNav 
+export default TopNav; 
