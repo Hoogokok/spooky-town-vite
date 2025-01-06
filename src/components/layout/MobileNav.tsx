@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './mobileNav.css';
@@ -5,6 +6,39 @@ import { navItems, loginItem } from '../../config/navigation';
 
 function MobileNav() {
     const location = useLocation();
+    const [isHidden, setIsHidden] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            // 스크롤 방향 감지
+            if (currentScrollY > lastScrollY) {
+                // 아래로 스크롤
+                setIsHidden(true);
+            } else {
+                // 위로 스크롤
+                setIsHidden(false);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        // 스크롤 이벤트 쓰로틀링
+        let timeoutId: ReturnType<typeof setTimeout> | null = null;
+        const throttledScroll = () => {
+            if (timeoutId) return;
+
+            timeoutId = setTimeout(() => {
+                handleScroll();
+                timeoutId = null;
+            }, 100);
+        };
+
+        window.addEventListener('scroll', throttledScroll);
+        return () => window.removeEventListener('scroll', throttledScroll);
+    }, [lastScrollY]);
 
     const isActive = (path: string) => {
         return location.pathname === path;
@@ -17,7 +51,7 @@ function MobileNav() {
                     <h1>스푸키 타운</h1>
                 </div>
             </header>
-            <nav className="mobileNav">
+            <nav className={`mobileNav ${isHidden ? 'hidden' : ''}`}>
                 {navItems.map((item) => (
                     <Link
                         key={item.href}

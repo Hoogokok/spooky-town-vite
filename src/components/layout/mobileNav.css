@@ -32,6 +32,12 @@
     right: 0;
     z-index: var(--z-index-fixed);
     box-shadow: var(--shadow-nav);
+    transform: translateY(0);
+    transition: var(--transition-nav);
+  }
+  
+  .mobileNav.hidden {
+    transform: translateY(100%);
   }
   
   .mobileIcon {
@@ -77,5 +83,12 @@
   
     .mobileNav {
       display: flex !important;
+    }
+  }
+  
+  /* 터치 디바이스 대응 */
+  @media (hover: none) and (pointer: coarse) {
+    .mobileNav {
+        will-change: transform;
     }
   }

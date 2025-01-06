@@ -21,4 +21,7 @@
   --z-index-fixed: 1030;
   --z-index-modal: 1050;
   --z-index-tooltip: 1060;
+  
+  /* 네비게이션 전환 효과 */
+  --transition-nav: transform 0.3s ease;
 } 
