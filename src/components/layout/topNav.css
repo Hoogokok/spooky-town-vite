@@ -1,0 +1,57 @@
+@import '../../styles/tokens/index.css';
+
+.topNav {
+    background-color: transparent;
+    padding: var(--spacing-4);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-index-fixed);
+}
+
+.navContent {
+    max-width: var(--width-content);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: var(--font-size-xl);
+    font-weight: bold;
+    color: var(--color-primary);
+    font-family: var(--font-family-display);
+}
+
+.menu {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-4);
+    margin: 0;
+    padding: 0;
+}
+
+.menu li a {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-md);
+}
+
+.menu li a:hover {
+    color: var(--color-text-primary);
+}
+
+.icon {
+    width: var(--spacing-6);
+    height: var(--spacing-6);
+    border-radius: var(--radius-base);
+}
+
+@media (max-width: 768px) {
+    .topNav {
+        display: none;
+    }
+} 
