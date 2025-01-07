@@ -24,14 +24,14 @@ function Home() {
                 {upcoming.length ? (
                     <MovieList movies={upcoming} type="upcoming" />
                 ) : (
-                    <div className="content">개봉 예정인 영화가 없어요!</div>
+                    <div className="movieContent">개봉 예정인 영화가 없어요!</div>
                 )}
 
                 <div className="imagesectionTitle">상영중 공포 영화</div>
                 {nowPlaying.length ? (
                     <MovieList movies={nowPlaying} type="released" />
                 ) : (
-                    <div className="content">상영중인 영화가 없어요!</div>
+                    <div className="movieContent">상영중인 영화가 없어요!</div>
                 )}
             </section>
         </main>
