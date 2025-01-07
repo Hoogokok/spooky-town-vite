@@ -1,69 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { signupUser } from '../../api/auth'
+import { Link } from 'react-router-dom'
+import { useSignup } from '../../hooks/useSignup'
 import './signup.css'
 
-interface SignupFormState {
-    email: string
-    password: string
-    name: string
-}
-
-interface SignupError {
-    email?: string[]
-    password?: string[]
-    name?: string[]
-    general?: string
-}
-
 export default function SignupPage() {
-    const navigate = useNavigate()
-    const [formData, setFormData] = useState<SignupFormState>({
-        email: '',
-        password: '',
-        name: ''
-    })
-    const [errors, setErrors] = useState<SignupError>({})
-    const [isLoading, setIsLoading] = useState(false)
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
-        setErrors(prev => ({
-            ...prev,
-            [name]: undefined
-        }))
-    }
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        setIsLoading(true)
-        setErrors({})
-
-        const { data, error, validationError } = await signupUser(formData)
-
-        if (validationError) {
-            setErrors(validationError)
-            setIsLoading(false)
-            return
-        }
-
-        if (error) {
-            setErrors({ general: error })
-            setIsLoading(false)
-            return
-        }
-
-        if (data?.token) {
-            localStorage.setItem('token', data.token)
-            navigate('/', { replace: true })
-        }
-
-        setIsLoading(false)
-    }
+    const { formData, errors, isLoading, handleChange, handleSubmit } = useSignup()
 
     return (
         <div className="signupContainer">
