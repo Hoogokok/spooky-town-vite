@@ -81,8 +81,8 @@ interface SignupResult {
     };
 }
 
-export async function signupUser({ email, password, name }: SignupInput): Promise<SignupResult> {
-    const validation = signupSchema.safeParse({ email, password, name })
+export async function signupUser({ email, password, name, passwordConfirm: _ }: SignupInput): Promise<SignupResult> {
+    const validation = signupSchema.safeParse({ email, password, passwordConfirm: _, name })
 
     if (!validation.success) {
         return {
