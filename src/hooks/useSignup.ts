@@ -5,12 +5,14 @@ import { signupUser } from '../api/auth'
 interface SignupFormState {
     email: string
     password: string
+    passwordConfirm: string
     name: string
 }
 
 interface SignupError {
     email?: string[]
     password?: string[]
+    passwordConfirm?: string[]
     name?: string[]
     general?: string
 }
@@ -20,6 +22,7 @@ export function useSignup() {
     const [formData, setFormData] = useState<SignupFormState>({
         email: '',
         password: '',
+        passwordConfirm: '',
         name: ''
     })
     const [errors, setErrors] = useState<SignupError>({})

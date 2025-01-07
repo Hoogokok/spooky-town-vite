@@ -30,6 +30,17 @@ export default function SignupPage() {
                 />
                 {errors.password && <p className="signupError">{errors.password[0]}</p>}
 
+                <input
+                    type="password"
+                    name="passwordConfirm"
+                    className="signupInput"
+                    placeholder="비밀번호를 다시 입력하세요"
+                    value={formData.passwordConfirm}
+                    onChange={handleChange}
+                    disabled={isLoading}
+                />
+                {errors.passwordConfirm && <p className="signupError">{errors.passwordConfirm[0]}</p>}
+
                 <input 
                     type="text" 
                     name="name" 
