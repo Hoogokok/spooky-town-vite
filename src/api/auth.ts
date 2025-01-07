@@ -10,23 +10,40 @@ interface LoginCredentials {
     password: string;
 }
 
-export async function loginUser({ email, password }: LoginCredentials) {
+interface LoginResult {
+    data: {
+        token: string | undefined;
+        user: {
+            id: string | undefined;
+            email: string | undefined;
+        } | null;
+    } | null;
+    error: string | null;
+}
+
+export async function loginUser({ email, password }: LoginCredentials): Promise<LoginResult> {
     const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
     })
 
     if (error) {
-        throw new Error(error.message || '이메일 또는 비밀번호가 일치하지 않습니다');
+        return {
+            data: null,
+            error: error.message || '이메일 또는 비밀번호가 일치하지 않습니다'
+        }
     }
 
     return {
-        token: data.session?.access_token,
-        user: {
-            id: data.user?.id,
-            email: data.user?.email,
-        }
-    };
+        data: {
+            token: data.session?.access_token,
+            user: {
+                id: data.user?.id,
+                email: data.user?.email,
+            }
+        },
+        error: null
+    }
 }
 
 export function getSession() {

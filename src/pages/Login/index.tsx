@@ -45,20 +45,20 @@ export default function LoginPage() {
         setIsLoading(true)
         setErrors({})
 
-        try {
-            const response = await loginUser(formData)
-            // 로그인 성공 처리
-            localStorage.setItem('token', response.token)
-            navigate(redirectTo || '/')
-        } catch (error) {
-            if (error instanceof Error) {
-                setErrors({
-                    general: error.message
-                })
-            }
-        } finally {
+        const { data, error } = await loginUser(formData)
+
+        if (error) {
+            setErrors({ general: error })
             setIsLoading(false)
+            return
         }
+
+        if (data?.token) {
+            localStorage.setItem('token', data.token)
+            navigate(redirectTo || '/')
+        }
+
+        setIsLoading(false)
     }
 
     return (
