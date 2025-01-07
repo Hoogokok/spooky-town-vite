@@ -1,29 +1,40 @@
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+    import.meta.env.VITE_SUPABASE_URL,
+    import.meta.env.VITE_SUPABASE_ANON_KEY
+)
+
 interface LoginCredentials {
     email: string;
     password: string;
 }
 
-interface LoginResponse {
-    token: string;
-    user: {
-        id: number;
-        email: string;
+export async function loginUser({ email, password }: LoginCredentials) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+    })
+
+    if (error) {
+        throw new Error(error.message || '이메일 또는 비밀번호가 일치하지 않습니다');
+    }
+
+    return {
+        token: data.session?.access_token,
+        user: {
+            id: data.user?.id,
+            email: data.user?.email,
+        }
     };
 }
 
-export async function loginUser(credentials: LoginCredentials): Promise<LoginResponse> {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
+export function getSession() {
+    return supabase.auth.getSession();
+}
+
+export function onAuthStateChange(callback: (session: any) => void) {
+    return supabase.auth.onAuthStateChange((_event, session) => {
+        callback(session);
     });
-
-    if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || '로그인에 실패했습니다.');
-    }
-
-    return response.json();
 } 
