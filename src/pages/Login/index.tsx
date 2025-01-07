@@ -45,7 +45,13 @@ export default function LoginPage() {
         setIsLoading(true)
         setErrors({})
 
-        const { data, error } = await loginUser(formData)
+        const { data, error, validationError } = await loginUser(formData)
+
+        if (validationError) {
+            setErrors(validationError)
+            setIsLoading(false)
+            return
+        }
 
         if (error) {
             setErrors({ general: error })
