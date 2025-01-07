@@ -19,6 +19,8 @@
     flex: 1;
     padding: var(--spacing-5);
     padding-top: 120px;
+    display: flex;
+    justify-content: center;
 }
 
 @media (max-width: 768px) {
