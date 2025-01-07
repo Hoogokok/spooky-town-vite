@@ -1,12 +1,18 @@
 import './magazine.css'
 import { Article } from '../../types/article'
+import ArticleCard from '../../components/ArticleCard'
 
 function Magazine() {
+    // 임시 데이터
+    const articles: Article[] = []
+
     return (
         <div className="magazineContainer">
             <h1 className="magazineTitle">Fangoria</h1>
             <div className="articlesGrid">
-                {/* 아티클 목록은 추후 구현 */}
+                {articles.map((article, index) => (
+                    <ArticleCard key={index} article={article} />
+                ))}
             </div>
         </div>
     )
