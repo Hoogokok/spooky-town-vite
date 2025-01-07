@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { signupUser } from '../../api/auth'
 import './signup.css'
 
 interface SignupFormState {
@@ -16,6 +17,7 @@ interface SignupError {
 }
 
 export default function SignupPage() {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState<SignupFormState>({
         email: '',
         password: '',
@@ -30,16 +32,42 @@ export default function SignupPage() {
             ...prev,
             [name]: value
         }))
-        // 입력 시 해당 필드의 에러 메시지 제거
         setErrors(prev => ({
             ...prev,
             [name]: undefined
         }))
     }
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        setIsLoading(true)
+        setErrors({})
+
+        const { data, error, validationError } = await signupUser(formData)
+
+        if (validationError) {
+            setErrors(validationError)
+            setIsLoading(false)
+            return
+        }
+
+        if (error) {
+            setErrors({ general: error })
+            setIsLoading(false)
+            return
+        }
+
+        if (data?.token) {
+            localStorage.setItem('token', data.token)
+            navigate('/', { replace: true })
+        }
+
+        setIsLoading(false)
+    }
+
     return (
         <div className="signupContainer">
-            <form className="signupForm" role="form">
+            <form className="signupForm" role="form" onSubmit={handleSubmit}>
                 <input 
                     type="email" 
                     name="email" 
