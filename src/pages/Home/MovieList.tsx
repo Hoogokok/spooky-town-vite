@@ -9,7 +9,7 @@ interface MovieListProps {
 
 export default function MovieList({ movies, type }: MovieListProps) {
     return (
-        <div className="content">
+        <div className="movieContent">
             {movies.map((movie: MovieListResponse) => (
                 <div key={movie.id} className="movieItem">
                     <img

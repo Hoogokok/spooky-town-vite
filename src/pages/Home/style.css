@@ -3,6 +3,7 @@
 .main {
     color: var(--color-text-primary);
     padding: var(--spacing-5);
+    padding-top: var(--spacing-10);
   }
   
   .imagesection {
@@ -14,25 +15,29 @@
     font-size: var(--font-size-xl);
     font-family: var(--font-family-korean);
     font-weight: bold;
-    margin-bottom: var(--spacing-5);
+    margin-bottom: var(--spacing-10);
+    margin-top: var(--spacing-10);
   }
   
-  .content {
+  .movieContent {
     display: flex;
     overflow-x: auto;
     gap: var(--spacing-10);
-    padding: 0 var(--spacing-5) var(--spacing-5);
-    scrollbar-width: none;  /* Firefox */
-    -ms-overflow-style: none;  /* IE and Edge */
+    padding-top: var(--spacing-3);
+    padding-left: var(--spacing-3);
+    padding-right: var(--spacing-3);
+    padding-bottom: var(--spacing-3);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     scroll-snap-type: x mandatory;
   }
   
-  .content::-webkit-scrollbar {
+  .movieContent::-webkit-scrollbar {
     display: none;  /* Chrome, Safari, Opera */
   }
   
-  .content::before,
-  .content::after {
+  .movieContent::before,
+  .movieContent::after {
     content: '';
     flex: 0 0 20px;
   }
@@ -96,13 +101,13 @@
   }
   
   @media (min-width: 768px) {
-    .content {
+    .movieContent {
       gap: calc(var(--spacing-10) + var(--spacing-2));
       padding: 0 var(--spacing-8) var(--spacing-5);
     }
   
-    .content::before,
-    .content::after {
+    .movieContent::before,
+    .movieContent::after {
       flex: 0 0 var(--spacing-8);
     }
   
@@ -121,14 +126,14 @@
   }
   
   @media (min-width: 1200px) {
-    .content {
+    .movieContent {
       gap: calc(var(--spacing-10) + var(--spacing-5));
       padding: 0 var(--spacing-10) var(--spacing-5);
       justify-content: flex-start;
     }
   
-    .content::before,
-    .content::after {
+    .movieContent::before,
+    .movieContent::after {
       flex: 0 0 var(--spacing-10);
     }
   
@@ -145,4 +150,24 @@
       font-size: var(--font-size-md);
     }
   }
+  
+  /* 섹션 간격 조정 */
+.section {
+    margin-bottom: var(--spacing-10); /* 섹션 간 간격 */
+}
+
+/* 섹션 제목 스타일 및 여백 */
+.sectionTitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-5);
+    margin-top: var(--spacing-8); /* TopNav와의 간격 */
+}
+
+/* 영화 목록 컨테이너 */
+.movieList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-4);
+}
   
