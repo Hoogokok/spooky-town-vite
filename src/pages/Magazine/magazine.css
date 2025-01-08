@@ -1,5 +1,5 @@
 .magazineContainer {
-  max-width: 800px;
+  max-width: var(--breakpoint-desktop);
   margin: 0 auto;
   padding: var(--spacing-6) var(--spacing-4);
   padding-top: var(--spacing-10);
@@ -28,8 +28,8 @@
 }
 
 .articleImage {
-  width: 200px;
-  height: 150px;
+  width: var(--content-poster-md);
+  aspect-ratio: calc(100 / var(--ratio-thumbnail));
   object-fit: cover;
   margin-right: var(--spacing-4);
   border-radius: var(--radius-base);
@@ -64,15 +64,29 @@
 }
 
 @media (max-width: var(--breakpoint-mobile)) {
+  .magazineContainer {
+    padding: var(--spacing-4) var(--spacing-2);
+  }
+
   .articleCard {
     flex-direction: column;
   }
 
   .articleImage {
     width: 100%;
-    height: 200px;
+    aspect-ratio: calc(100 / var(--ratio-thumbnail));
     margin-right: 0;
     margin-bottom: var(--spacing-3);
+  }
+
+  .articleTitle {
+    font-size: var(--font-size-base);
+  }
+}
+
+@media (max-width: var(--breakpoint-tablet)) {
+  .magazineContainer {
+    max-width: 100%;
   }
 }
 
