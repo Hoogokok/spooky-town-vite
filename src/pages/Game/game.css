@@ -1,0 +1,43 @@
+.channelList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    padding: var(--spacing-5);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    align-items: flex-start;
+    width: 100%;
+    margin: 0;
+}
+
+.channelList h1 {
+    text-align: left;
+    margin-bottom: var(--spacing-5);
+    font-size: var(--font-size-xl);
+    font-family: var(--font-family-korean);
+    width: 100%;
+    padding-left: var(--spacing-4);
+    border-bottom: 1px solid var(--color-surface);
+}
+
+/* 게임 채널 목록 레이아웃 */
+.gameList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    width: 100%;
+}
+
+/* 각 채널의 비디오 목록을 가로로 스크롤 */
+.videoList {
+    display: flex;
+    overflow-x: auto;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4);
+    scroll-snap-type: x mandatory;
+}
+
+.videoItem {
+    flex: 0 0 300px;
+    scroll-snap-align: start;
+}

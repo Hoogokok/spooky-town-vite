@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Effect } from 'effect'
 import './style.css'
-import { movieApi, FetchError, NetworkError } from '../../api/enpoints/movie'
+import { movieApi, FetchError, NetworkError } from '../../api/endpoints/movie'
 import MovieList from './MovieList'
 import Loading from '../../components/common/Loading'
 

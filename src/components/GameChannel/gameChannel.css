@@ -1,0 +1,51 @@
+.channelItem {
+    border: 1px solid var(--color-surface);
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+}
+
+.channelName {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-2);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-korean);
+}
+
+.channelLink {
+    display: inline-block;
+    margin-bottom: var(--spacing-4);
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--color-button);
+    border-radius: var(--radius-base);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    transition: background-color var(--transition-normal);
+}
+
+.channelLink:hover {
+    background-color: var(--color-button-hover);
+}
+
+.videoLink {
+    display: inline-block;
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--color-action-primary);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-sm);
+    transition: var(--transition-normal);
+    font-weight: var(--font-weight-medium);
+}
+
+.videoLink:hover {
+    background-color: var(--color-action-primary-hover);
+}
+
+/* 영상보기 버튼 컨테이너 */
+.videoLinkContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--spacing-2);
+}

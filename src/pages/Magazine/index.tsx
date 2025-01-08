@@ -4,7 +4,7 @@ import { Effect } from 'effect'
 import ArticleCard from '../../components/ArticleCard'
 import Loading from '../../components/common/Loading'
 import ErrorComponent from '../../components/common/ErrorComponent'
-import { fetchArticles } from '../../api/enpoints/magazine'
+import { fetchArticles } from '../../api/endpoints/magazine'
 import { ApiError, NetworkError } from '../../types/error'
 
 function Magazine() {
