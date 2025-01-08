@@ -1,10 +1,9 @@
 import { Effect } from 'effect'
 import { ApiError, NetworkError } from '../../types/error'
-import { StreamingMovie, MovieSearchResponse } from '../../types/api/movie'
-import { getMockStreamingMovies } from '../../mocks/streamingMovies'
+import { MovieSearchResponse } from '../../types/api/movie'
 
-const BASE_URL = import.meta.env.VITE_MOVIE_API
-const API_KEY = import.meta.env.VITE_MOVIE_API_KEY
+const BASE_URL = import.meta.env.VITE_API_URL
+const API_KEY = import.meta.env.VITE_API_KEY
 
 const fetchFromApi = (provider: string, page: string, search: string) =>
     Effect.tryPromise({
