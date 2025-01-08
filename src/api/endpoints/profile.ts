@@ -2,6 +2,7 @@ import { Effect } from 'effect'
 import { ApiError, NetworkError } from '../../types/error'
 import { getSession } from '../auth'
 import { profileImageSchema, profileUpdateSchema, type ProfileUpdateInput } from '../schemas/profile'
+import { passwordChangeSchema, type PasswordChangeInput } from '../schemas/auth'
 
 interface Profile {
     id: string;
@@ -113,6 +114,39 @@ export const uploadProfileImage = (file: File) => Effect.gen(function* (_) {
 
     if (!response.ok) {
         throw new ProfileError('이미지 업로드에 실패했습니다')
+    }
+
+    return response.json()
+})
+
+export const updatePassword = (data: PasswordChangeInput) => Effect.gen(function* (_) {
+    const validation = passwordChangeSchema.safeParse(data)
+
+    if (!validation.success) {
+        throw new ProfileError(validation.error.errors[0].message)
+    }
+
+    const session = yield* _(Effect.tryPromise(() => getSession()))
+    const token = session?.data.session?.access_token
+
+    if (!token) {
+        throw new ProfileError('인증이 필요합니다')
+    }
+
+    const response = yield* _(Effect.tryPromise(() =>
+        fetch(`${import.meta.env.VITE_API_URL}/users/profile/password`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                'X-API-Key': import.meta.env.VITE_API_KEY
+            },
+            body: JSON.stringify(validation.data)
+        })
+    ))
+
+    if (!response.ok) {
+        throw new ProfileError('비밀번호 변경에 실패했습니다')
     }
 
     return response.json()
