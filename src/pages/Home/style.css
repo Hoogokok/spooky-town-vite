@@ -9,6 +9,7 @@
   .imagesection {
     margin-bottom: var(--spacing-10);
     position: relative;
+    flex-direction: column;
   }
   
   .imagesectionTitle {
