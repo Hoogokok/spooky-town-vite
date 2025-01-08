@@ -18,6 +18,7 @@ function ProfileEdit() {
     const queryClient = useQueryClient()
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
     const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+    const [selectedImage, setSelectedImage] = useState<File | null>(null)
 
     const { data: profile, isLoading, error: fetchError } = useQuery<ProfileData>({
         queryKey: ['profile'],
@@ -95,11 +96,9 @@ function ProfileEdit() {
             return
         }
 
-        // 미리보기 URL 생성
+        setSelectedImage(file)
         const objectUrl = URL.createObjectURL(file)
         setPreviewUrl(objectUrl)
-
-        imageMutation.mutate(file)
     }
 
     // 컴포넌트 언마운트 시 URL 정리
@@ -130,21 +129,32 @@ function ProfileEdit() {
                             src={previewUrl || profile?.imageUrl || '/icons/profile.svg'}
                             alt="프로필 이미지"
                         />
-                        <input
-                            type="file"
-                            id="profileImage"
-                            accept=".jpg,.jpeg"
-                            onChange={handleImageChange}
-                            className="hidden"
-                        />
-                        <button
-                            type="button"
-                            className="changeImageButton"
-                            onClick={() => document.getElementById('profileImage')?.click()}
-                            disabled={imageMutation.isPending}
-                        >
-                            {imageMutation.isPending ? '업로드 중...' : '이미지 변경'}
-                        </button>
+                        <div className="imageActions">
+                            <input
+                                type="file"
+                                id="profileImage"
+                                accept=".jpg,.jpeg"
+                                onChange={handleImageChange}
+                                className="hidden"
+                            />
+                            <button
+                                type="button"
+                                className="changeImageButton"
+                                onClick={() => document.getElementById('profileImage')?.click()}
+                            >
+                                선택
+                            </button>
+                            {selectedImage && (
+                                <button
+                                    type="button"
+                                    className="uploadImageButton"
+                                    onClick={() => imageMutation.mutate(selectedImage)}
+                                    disabled={imageMutation.isPending}
+                                >
+                                    {imageMutation.isPending ? '업로드 중...' : '저장'}
+                                </button>
+                            )}
+                        </div>
                     </div>
                     <div className="formGroup">
                         <label htmlFor="name" className="formLabel">이름</label>
