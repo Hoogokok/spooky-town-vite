@@ -1,0 +1,51 @@
+.imagesection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4);
+}
+
+.image {
+    width: 200px;
+    height: 300px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.skeleton {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        var(--color-surface) 25%,
+        var(--color-surface-hover) 50%,
+        var(--color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .image {
+        width: 150px;
+        height: 225px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .image {
+        width: 250px;
+        height: 375px;
+    }
+} 
