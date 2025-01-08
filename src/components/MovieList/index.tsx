@@ -14,8 +14,6 @@ function MovieList({ movies }: MovieListProps) {
                     <div className="streamingMoviePosterContainer">
                         <img
                             src={movie.posterPath}
-                            width={250}
-                            height={300}
                             alt={movie.title}
                             className="streamingMoviePoster"
                             loading="lazy"
