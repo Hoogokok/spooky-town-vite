@@ -11,7 +11,8 @@ function Game() {
         queries: horrorGameChannels.map(channel => ({
             queryKey: ['videos', channel.id],
             queryFn: () => Effect.runPromise(fetchLatestVideos(channel.id)),
-            
+            gcTime: 24 * 60 * 60 * 1000,
+            staleTime: 60 * 60 * 1000,
         }))
     })
 
