@@ -1,7 +1,7 @@
 import { Effect } from 'effect'
 import { ApiError, NetworkError } from '../../types/error'
 import { getSession } from '../auth'
-import { profileUpdateSchema, type ProfileUpdateInput } from '../schemas/profile'
+import { profileImageSchema, profileUpdateSchema, type ProfileUpdateInput } from '../schemas/profile'
 
 interface Profile {
     id: string;
@@ -89,6 +89,12 @@ export const uploadProfileImage = (file: File) => Effect.gen(function* (_) {
 
     if (!token) {
         throw new ProfileError('인증이 필요합니다')
+    }
+
+    const validation = profileImageSchema.safeParse({ image: file })
+
+    if (!validation.success) {
+        throw new ProfileError(validation.error.errors[0].message)
     }
 
     const formData = new FormData()

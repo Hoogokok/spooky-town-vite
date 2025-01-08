@@ -1,109 +1,24 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getProfile, updateProfile, uploadProfileImage } from '../../../api/endpoints/profile'
-import { type ProfileUpdateInput } from '../../../api/schemas/profile'
-import { Effect } from 'effect'
+import { ProfileImageEditor } from './components/ProfileImageEditor'
+import { ProfileForm } from './components/ProfileForm'
+import { ErrorMessage } from './components/ErrorMessage'
 import Loading from '../../../components/common/Loading'
-import { useNavigate } from 'react-router-dom'
+import { useProfileEdit } from './hooks/useProfileEdit'
 import './edit.css'
-import { useState, useEffect } from 'react'
-import { profileImageSchema } from '../../../api/schemas/profile'
-
-interface ProfileData {
-    name: string;
-    email: string;
-    imageUrl?: string;
-}
 
 function ProfileEdit() {
-    const navigate = useNavigate()
-    const queryClient = useQueryClient()
-    const [errorMessage, setErrorMessage] = useState<string | null>(null)
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null)
-    const [selectedImage, setSelectedImage] = useState<File | null>(null)
-
-    const { data: profile, isLoading, error: fetchError } = useQuery<ProfileData>({
-        queryKey: ['profile'],
-        queryFn: () => Effect.runPromise(getProfile)
-    })
-
-    const { mutate, isPending: isSaving } = useMutation({
-        mutationFn: (data: ProfileUpdateInput) => Effect.runPromise(updateProfile(data)),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['profile'] })
-            navigate('/profile')
-        },
-        onError: (error: Error) => {
-            if (error && '_tag' in error && error._tag === 'ProfileError') {
-                switch (error.message) {
-                    case '프로필 업데이트에 실패했습니다':
-                        setErrorMessage('프로필을 수정하는 중에 문제가 발생했어요. 잠시 후 다시 시도해주세요.')
-                        break
-                    case '인증이 필요합니다':
-                        setErrorMessage('로그인이 필요한 기능이에요.')
-                        break
-                    default:
-                        setErrorMessage('알 수 없는 오류가 발생했어요. 잠시 후 다시 시도해주세요.')
-                }
-            } else {
-                setErrorMessage('알 수 없는 오류가 발생했어요. 잠시 후 다시 시도해주세요.')
-            }
-        }
-    })
-
-    const imageMutation = useMutation({
-        mutationFn: (file: File) => Effect.runPromise(uploadProfileImage(file)),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['profile'] })
-        },
-        onError: (error: Error) => {
-            if (error && '_tag' in error && error._tag === 'ProfileError') {
-                switch (error.message) {
-                    case '이미지 업로드에 실패했습니다':
-                        setErrorMessage('이미지 업로드 중 문제가 발생했어요. 다시 시도해주세요.')
-                        break
-                    default:
-                        setErrorMessage('알 수 없는 오류가 발생했어요. 잠시 후 다시 시도해주세요.')
-                }
-            }
-        }
-    })
-
-    const handleCancel = () => {
-        navigate('/profile')
-    }
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        const formData = new FormData(e.currentTarget as HTMLFormElement)
-        const name = formData.get('name') as string
-
-        mutate({ name })
-    }
-
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0]
-        if (!file) return
-
-        const validation = profileImageSchema.safeParse({ image: file })
-
-        if (!validation.success) {
-            setErrorMessage(validation.error.errors[0].message)
-            return
-        }
-
-        setSelectedImage(file)
-        const objectUrl = URL.createObjectURL(file)
-        setPreviewUrl(objectUrl)
-    }
-
-    // 컴포넌트 언마운트 시 URL 정리
-    useEffect(() => {
-        return () => {
-            if (previewUrl) {
-                URL.revokeObjectURL(previewUrl)
-            }
-        }
-    }, [previewUrl])
+    const {
+        profile,
+        isLoading,
+        errorMessage,
+        selectedImage,
+        handleImageSelect,
+        handleImageUpload,
+        handleProfileUpdate,
+        handleCancel,
+        isUploading,
+        isSaving,
+        fetchError
+    } = useProfileEdit()
 
     if (isLoading) {
         return <Loading />
@@ -112,81 +27,23 @@ function ProfileEdit() {
     return (
         <div className="profileEditContainer" role="main">
             <div className="profileTitle">프로필 수정</div>
-            {errorMessage && (
-                <div className="error" role="alert">
-                    {errorMessage}
-                </div>
-            )}
+            {errorMessage && <ErrorMessage message={errorMessage} />}
             <section className="profileEditSection">
-                <form onSubmit={handleSubmit} className="profileEditForm">
-                    <div className="profileEditAvatar">
-                        <img
-                            src={previewUrl || profile?.imageUrl || '/icons/profile.svg'}
-                            alt="프로필 이미지"
-                        />
-                        <div className="imageActions">
-                            <input
-                                type="file"
-                                id="profileImage"
-                                accept=".jpg,.jpeg"
-                                onChange={handleImageChange}
-                                className="hidden"
-                            />
-                            <button
-                                type="button"
-                                className="changeImageButton"
-                                onClick={() => document.getElementById('profileImage')?.click()}
-                            >
-                                선택
-                            </button>
-                            {selectedImage && (
-                                <button
-                                    type="button"
-                                    className="uploadImageButton"
-                                    onClick={() => imageMutation.mutate(selectedImage)}
-                                    disabled={imageMutation.isPending}
-                                >
-                                    {imageMutation.isPending ? '업로드 중...' : '저장'}
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                    <div className="formGroup">
-                        <label htmlFor="name" className="formLabel">이름</label>
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            className="formInput"
-                            defaultValue={profile?.name}
-                            placeholder="이름을 입력하세요"
-                            minLength={2}
-                            maxLength={20}
-                        />
-                        <p className="formHint">
-                        이름은 최소 2자, 최대 20자까지 입력이 가능해요 수정한 정보는 다른 서비스에도 동일하게 표시돼요
-                        </p>
-                    </div>
-                    <div className="formActions">
-                        <button
-                            type="button"
-                            className="cancelButton"
-                            onClick={handleCancel}
-                            disabled={isSaving}
-                        >
-                            취소
-                        </button>
-                        <button
-                            type="submit"
-                            className="saveButton"
-                            disabled={isSaving}
-                        >
-                            {isSaving ? '저장 중...' : '저장'}
-                        </button>
-                    </div>
-                </form>
+                <ProfileImageEditor
+                    imageUrl={profile?.imageUrl}
+                    onImageSelect={handleImageSelect}
+                    onImageUpload={handleImageUpload}
+                    isUploading={isUploading}
+                    selectedImage={selectedImage}
+                />
+                <ProfileForm
+                    defaultName={profile?.name}
+                    onSubmit={handleProfileUpdate}
+                    onCancel={handleCancel}
+                    isSaving={isSaving}
+                />
             </section>
-            {fetchError && <div className="error">{(fetchError as Error).message}</div>}
+            {fetchError && <ErrorMessage message={(fetchError as Error).message} />}
         </div>
     )
 }
