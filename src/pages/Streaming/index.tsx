@@ -1,20 +1,22 @@
+import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { Suspense } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Effect } from 'effect'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
 import MovieList from '../../components/MovieList'
-import MovieSearch from '../../components/MovieSearch'
 import MoviePagination from '../../components/MoviePagination'
 import MovieSkeleton from '../../components/MovieSkeleton'
 import { searchStreamingMovies } from '../../api/endpoints/streaming'
-import './streaming.css'
 import ErrorComponent from '../../components/common/ErrorComponent'
+import './streaming.css'
 
 function StreamingPage() {
-    const [searchParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const isMobile = useMediaQuery('(max-width: 768px)')
     const provider = searchParams.get('provider') || 'all'
     const page = searchParams.get('page') || '1'
     const search = searchParams.get('search') || ''
+    const [searchQuery, setSearchQuery] = useState(search)
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['movies', provider, page, search],
@@ -26,11 +28,70 @@ function StreamingPage() {
         }
     })
 
-    const getMoviePosterUrl = (posterPath: string) => {
-        return import.meta.env.VITE_DEV
-            ? import.meta.env.VITE_POSTER_URL + posterPath
-            : posterPath
+    const handleProviderChange = (newProvider: string) => {
+        setSearchParams(prev => {
+            if (newProvider === 'all') {
+                prev.delete('provider')
+            } else {
+                prev.set('provider', newProvider)
+            }
+            prev.set('page', '1')
+            return prev
+        })
     }
+
+    const handleSearch = (query: string) => {
+        setSearchQuery(query)
+        setSearchParams(prev => {
+            if (query) {
+                prev.set('search', query)
+            } else {
+                prev.delete('search')
+            }
+            prev.set('page', '1')
+            return prev
+        })
+    }
+
+    const SearchTab = isMobile ? (
+        <div className="searchTabWrapper">
+            <select
+                onChange={(e) => handleProviderChange(e.target.value)}
+                className="mobileSelect"
+                value={provider}
+            >
+                <option value="all">전체</option>
+                <option value="netflix">넷플릭스</option>
+                <option value="disney">디즈니+</option>
+                <option value="wavve">웨이브</option>
+                <option value="naver">네이버</option>
+                <option value="googleplay">구글 플레이</option>
+            </select>
+            <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+                placeholder="영화 검색"
+                className="searchInput"
+            />
+        </div>
+    ) : (
+        <div className="searchTabWrapper">
+            <button onClick={() => handleProviderChange('all')} className="searchButton">모든 서비스</button>
+            <button onClick={() => handleProviderChange('netflix')} className="searchButton">넷플릭스</button>
+            <button onClick={() => handleProviderChange('disney')} className="searchButton">디즈니+</button>
+            <button onClick={() => handleProviderChange('wavve')} className="searchButton">웨이브</button>
+            <button onClick={() => handleProviderChange('naver')} className="searchButton">네이버</button>
+            <button onClick={() => handleProviderChange('googleplay')} className="searchButton">구글 플레이</button>
+            <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+                placeholder="영화 검색"
+                className="searchInput"
+            />
+        </div>
+    )
 
     if (error) {
         return <ErrorComponent
@@ -42,21 +103,23 @@ function StreamingPage() {
     return (
         <div className="streamingContainer">
             <div className="streamingSearchContainer">
-                <MovieSearch />
+                {SearchTab}
             </div>
             <div className="imageGalleryWrapper">
-                <Suspense fallback={<MovieSkeleton />}>
-                    {isLoading ? (
-                        <MovieSkeleton />
-                    ) : (
-                            data?.movies && <MovieList
+                {isLoading ? (
+                    <MovieSkeleton />
+                ) : (
+                        data?.movies && (
+                            <MovieList
                                 movies={data.movies.map(movie => ({
                                     ...movie,
-                                    posterPath: getMoviePosterUrl(movie.posterPath)
-                                }))}
+                                posterPath: import.meta.env.VITE_DEV
+                                    ? import.meta.env.VITE_POSTER_URL + movie.posterPath
+                                    : movie.posterPath
+                            }))}
                             />
-                    )}
-                </Suspense>
+                        )
+                )}
             </div>
             {data?.totalPages && (
                 <div className="paginationWrapper">
