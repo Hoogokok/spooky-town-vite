@@ -2,6 +2,7 @@ interface ProfileFormProps {
     defaultName?: string;
     onSubmit: (name: string) => void;
     onCancel: () => void;
+    onChangePassword: () => void;
     isSaving: boolean;
 }
 
@@ -9,6 +10,7 @@ export function ProfileForm({
     defaultName,
     onSubmit,
     onCancel,
+    onChangePassword,
     isSaving
 }: ProfileFormProps) {
     const handleSubmit = (e: React.FormEvent) => {
@@ -35,6 +37,15 @@ export function ProfileForm({
                 <p className="formHint">
                     이름은 최소 2자, 최대 20자까지 입력이 가능해요 수정한 정보는 다른 서비스에도 동일하게 표시돼요
                 </p>
+            </div>
+            <div className="formGroup">
+                <button
+                    type="button"
+                    className="changePasswordButton"
+                    onClick={onChangePassword}
+                >
+                    비밀번호 변경
+                </button>
             </div>
             <div className="formActions">
                 <button
