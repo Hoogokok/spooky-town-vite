@@ -88,8 +88,9 @@ function ProfileEdit() {
         }
 
         // 파일 타입 체크
-        if (!file.type.startsWith('image/')) {
-            setErrorMessage('이미지 파일만 업로드 가능합니다.')
+        const allowedTypes = ['image/jpeg', 'image/jpg']
+        if (!allowedTypes.includes(file.type)) {
+            setErrorMessage('JPG 또는 JPEG 형식의 이미지만 업로드 가능합니다.')
             return
         }
 
@@ -118,7 +119,7 @@ function ProfileEdit() {
                         <input
                             type="file"
                             id="profileImage"
-                            accept="image/*"
+                            accept=".jpg,.jpeg"
                             onChange={handleImageChange}
                             className="hidden"
                         />
