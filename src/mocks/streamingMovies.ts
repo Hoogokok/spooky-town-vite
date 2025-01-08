@@ -1,6 +1,6 @@
-import { Movie } from '../types/movie'
+import { StreamingMovie } from '../types/movie'
 
-const generateMockMovies = (page: number, itemsPerPage: number = 18): Movie[] => {
+const generateMockMovies = (page: number, itemsPerPage: number = 18): StreamingMovie[] => {
     const startIndex = (page - 1) * itemsPerPage
     return Array.from({ length: itemsPerPage }, (_, index) => ({
         id: startIndex + index + 1,

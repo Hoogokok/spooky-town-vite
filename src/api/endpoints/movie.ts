@@ -1,5 +1,5 @@
 import { Effect } from 'effect'
-import { MovieListResponse } from '../types/movieResponses'
+import { TheaterMovie } from '../types/movieResponses'
 
 export class FetchError {
     readonly _tag = 'FetchError'
@@ -24,11 +24,11 @@ const fetchFromApi = (endpoint: string) => Effect.tryPromise({
 })
 
 const parseResponse = (response: Response) => Effect.tryPromise({
-    try: () => response.json() as Promise<MovieListResponse[]>,
+    try: () => response.json() as Promise<TheaterMovie[]>,
     catch: () => new FetchError('응답을 파싱하는데 실패했습니다')
 })
 
-const fetchMovies = (endpoint: string): Effect.Effect<MovieListResponse[], FetchError | NetworkError, never> =>
+const fetchMovies = (endpoint: string): Effect.Effect<TheaterMovie[], FetchError | NetworkError, never> =>
     Effect.gen(function* (_) {
         const response = yield* _(fetchFromApi(endpoint))
 

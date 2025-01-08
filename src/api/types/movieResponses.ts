@@ -1,4 +1,4 @@
-export interface MovieListResponse {
+export interface TheaterMovie {
     id: number
     title: string
     posterPath: string

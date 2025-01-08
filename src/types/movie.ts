@@ -1,4 +1,4 @@
-export interface Movie {
+export interface StreamingMovie {
     id: number
     title: string
     posterPath: string
