@@ -43,7 +43,7 @@ function StreamingPage() {
                     {isLoading ? (
                         <MovieSkeleton />
                     ) : (
-                        data?.movies && <MovieList movies={data.movies} />
+                            data?.movies && <MovieList movies={data.movies} posterUrl={import.meta.env.VITE_POSTER_URL} isDev={import.meta.env.VITE_DEV} />
                     )}
                 </Suspense>
             </div>
