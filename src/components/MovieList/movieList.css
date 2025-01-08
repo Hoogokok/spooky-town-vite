@@ -48,6 +48,7 @@
     line-height: var(--line-height-tight);
     margin-top: var(--spacing-1);
     font-weight: 1000;
+    font-family: var(--font-family-korean);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
