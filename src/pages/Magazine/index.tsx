@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Article } from '../../types/article'
 import ArticleCard from '../../components/ArticleCard'
 import Loading from '../../components/common/Loading'
-import { fetchArticles } from '../../api/magazine'
+import { fetchArticles } from '../../api/enpoints/magazine'
 
 function Magazine() {
     const { data: articles, isLoading, error } = useQuery<Article[]>({
