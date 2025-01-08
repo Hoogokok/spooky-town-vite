@@ -17,7 +17,7 @@ export function useLogin() {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const message = searchParams.get('message')
-    const redirectTo = searchParams.get('redirectTo')
+    const redirect = searchParams.get('redirect')
 
     const [formData, setFormData] = useState<LoginFormState>({
         email: '',
@@ -59,7 +59,7 @@ export function useLogin() {
 
         if (data?.token) {
             localStorage.setItem('token', data.token)
-            navigate(redirectTo || '/', { replace: true })
+            navigate(redirect || '/', { replace: true })
         }
 
         setIsLoading(false)

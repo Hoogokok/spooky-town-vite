@@ -11,8 +11,8 @@ export class NetworkError {
     constructor(readonly message: string) { }
 }
 
-const BASE_URL = import.meta.env.VITE_MOVIE_API
-const API_KEY = import.meta.env.VITE_MOVIE_API_KEY
+const BASE_URL = import.meta.env.VITE_API_URL
+const API_KEY = import.meta.env.VITE_API_KEY
 
 const fetchFromApi = (endpoint: string) => Effect.tryPromise({
     try: () => fetch(`${BASE_URL}${endpoint}`, {

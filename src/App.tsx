@@ -8,6 +8,9 @@ import Signup from './pages/Signup'
 import Magazine from './pages/Magazine'
 import Game from './pages/Game'
 import StreamingPage from './pages/Streaming'
+import Profile from './pages/Profile'
+import ProfileEdit from './pages/Profile/Edit'
+import { ProtectedRoute } from './components/auth/ProtectedRoute'
 
 const queryClient = new QueryClient()
 
@@ -23,6 +26,22 @@ function App() {
             <Route path="/magazine" element={<Magazine />} />
             <Route path="/games" element={<Game />} />
             <Route path="/streaming" element={<StreamingPage />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile/edit"
+              element={
+                <ProtectedRoute>
+                  <ProfileEdit />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </MainLayout>
       </BrowserRouter>
