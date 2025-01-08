@@ -1,4 +1,3 @@
-import { NavItem } from '../types/navigation'
 
 export const navItems = [
     {
@@ -9,10 +8,17 @@ export const navItems = [
     },
     {
         href: '/videos',
-        icon: '/icons/search.svg',
+        icon: '/icons/video.svg',
         label: '영상',
         alt: '영상 아이콘'
     },
+    {
+        href: '/magazine',
+        icon: '/icons/news.svg',
+        label: '잡지',
+        alt: '잡지 아이콘'
+    },
+
     {
         href: '/manga',
         icon: '/icons/manga.svg',

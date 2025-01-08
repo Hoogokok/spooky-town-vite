@@ -1,0 +1,94 @@
+.magazineContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-6) var(--spacing-4);
+  padding-top: var(--spacing-10);
+}
+
+.magazineTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: bold;
+  margin-bottom: var(--spacing-4);
+  text-align: center;
+  color: var(--color-primary);
+  font-family: var(--font-family-display);
+  letter-spacing: -0.5px;
+}
+
+.articlesGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.articleCard {
+  display: flex;
+  border-bottom: 1px solid var(--color-divider);
+  padding-bottom: var(--spacing-6);
+}
+
+.articleImage {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  margin-right: var(--spacing-4);
+  border-radius: var(--radius-base);
+}
+
+.articleContent {
+  flex: 1;
+}
+
+.articleTitle {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--spacing-2);
+  color: var(--color-text-primary);
+  transition: var(--transition-fast);
+}
+
+.articleTitle:hover {
+  color: var(--color-primary);
+}
+
+.articleAuthor {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-2);
+}
+
+.articleExcerpt {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+}
+
+@media (max-width: var(--breakpoint-mobile)) {
+  .articleCard {
+    flex-direction: column;
+  }
+
+  .articleImage {
+    width: 100%;
+    height: 200px;
+    margin-right: 0;
+    margin-bottom: var(--spacing-3);
+  }
+}
+
+.articleLink:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-base);
+}
+
+/* 키보드 사용자를 위한 포커스 스타일 */
+:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* 마우스 사용자를 위한 포커스 스타일 제거 */
+:focus:not(:focus-visible) {
+    outline: none;
+} 
