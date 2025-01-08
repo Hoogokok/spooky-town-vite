@@ -5,12 +5,17 @@ import { useQueries } from '@tanstack/react-query'
 import { Effect } from 'effect'
 import { fetchLatestVideos } from '../../api/endpoints/game'
 import Loading from '../../components/common/Loading'
+import { mockVideos } from '../../data/mockVideos'
 
 function Game() {
+    const isDev = import.meta.env.VITE_DEV
+
     const channelQueries = useQueries({
         queries: horrorGameChannels.map(channel => ({
             queryKey: ['videos', channel.id],
-            queryFn: () => Effect.runPromise(fetchLatestVideos(channel.id)),
+            queryFn: () => isDev
+                ? Promise.resolve(mockVideos)
+                : Effect.runPromise(fetchLatestVideos(channel.id)),
             gcTime: 24 * 60 * 60 * 1000,
             staleTime: 60 * 60 * 1000,
         }))
@@ -22,7 +27,7 @@ function Game() {
 
     return (
         <div className="channelList">
-            <h1>공포 게임 채널</h1>
+            <h1>채널 목록</h1>
             <div className="gameList">
                 {horrorGameChannels.map((channel, index) => (
                     <GameChannel
