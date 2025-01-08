@@ -1,6 +1,7 @@
 import { Effect } from 'effect'
 import { ApiError, NetworkError } from '../../types/error'
 import { getSession } from '../auth'
+import { profileUpdateSchema, type ProfileUpdateInput } from '../schemas/profile'
 
 interface Profile {
     id: string;
@@ -47,4 +48,37 @@ export const getProfile = Effect.gen(function* (_) {
     const response = yield* _(fetchFromApi)
     const profile = yield* _(parseResponse(response))
     return profile
+})
+
+export const updateProfile = (data: ProfileUpdateInput) => Effect.gen(function* (_) {
+    const validation = profileUpdateSchema.safeParse(data)
+
+    if (!validation.success) {
+        throw new ProfileError(validation.error.errors[0].message)
+    }
+
+    const session = yield* _(Effect.tryPromise(() => getSession()))
+    const token = session?.data.session?.access_token
+
+    if (!token) {
+        throw new ProfileError('인증이 필요합니다')
+    }
+
+    const response = yield* _(Effect.tryPromise(() =>
+        fetch(`${import.meta.env.VITE_API_URL}/users/profile`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                'X-API-Key': import.meta.env.VITE_API_KEY
+            },
+            body: JSON.stringify(validation.data)
+        })
+    ))
+
+    if (!response.ok) {
+        throw new ProfileError('프로필 업데이트에 실패했습니다')
+    }
+
+    return response.json()
 }) 

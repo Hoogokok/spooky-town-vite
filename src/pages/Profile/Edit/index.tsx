@@ -1,5 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
-import { getProfile } from '../../../api/endpoints/profile'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { getProfile, updateProfile } from '../../../api/endpoints/profile'
+import { type ProfileUpdateInput } from '../../../api/schemas/profile'
 import { Effect } from 'effect'
 import Loading from '../../../components/common/Loading'
 import { useNavigate } from 'react-router-dom'
@@ -13,9 +14,22 @@ interface ProfileData {
 
 function ProfileEdit() {
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
     const { data: profile, isLoading, error } = useQuery<ProfileData>({
         queryKey: ['profile'],
         queryFn: () => Effect.runPromise(getProfile)
+    })
+
+    const { mutate, isPending: isSaving } = useMutation({
+        mutationFn: (data: ProfileUpdateInput) => Effect.runPromise(updateProfile(data)),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['profile'] })
+            navigate('/profile')
+        },
+        onError: (error: Error) => {
+            // TODO: 에러 처리
+            console.error(error.message)
+        }
     })
 
     const handleCancel = () => {
@@ -24,8 +38,10 @@ function ProfileEdit() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        // TODO: 프로필 업데이트 로직
-        console.log('프로필 업데이트')
+        const formData = new FormData(e.currentTarget as HTMLFormElement)
+        const name = formData.get('name') as string
+
+        mutate({ name })
     }
 
     if (isLoading) {
@@ -50,6 +66,7 @@ function ProfileEdit() {
                         <label htmlFor="name" className="formLabel">이름</label>
                         <input
                             id="name"
+                            name="name"
                             type="text"
                             className="formInput"
                             defaultValue={profile?.name}
@@ -62,11 +79,20 @@ function ProfileEdit() {
                         </p>
                     </div>
                     <div className="formActions">
-                        <button type="button" className="cancelButton" onClick={handleCancel}>
+                        <button
+                            type="button"
+                            className="cancelButton"
+                            onClick={handleCancel}
+                            disabled={isSaving}
+                        >
                             취소
                         </button>
-                        <button type="submit" className="saveButton">
-                            저장
+                        <button
+                            type="submit"
+                            className="saveButton"
+                            disabled={isSaving}
+                        >
+                            {isSaving ? '저장 중...' : '저장'}
                         </button>
                     </div>
                 </form>
