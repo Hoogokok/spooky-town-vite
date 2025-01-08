@@ -8,18 +8,20 @@ interface MovieSearchResponse {
     totalPages: number;
 }
 
+const BASE_URL = import.meta.env.VITE_MOVIE_API
+const API_KEY = import.meta.env.VITE_MOVIE_API_KEY
+
 const fetchFromApi = (provider: string, page: string, search: string) =>
     Effect.tryPromise({
         try: async () => {
-            if (import.meta.env.DEV) {
-                return new Response(JSON.stringify(
-                    getMockStreamingMovies(provider, page, search)
-                ))
-            }
-
             return fetch(
-                `${import.meta.env.VITE_API_URL}/movies/streaming?` +
-                new URLSearchParams({ provider, page, search })
+                `${BASE_URL}/movies/streaming?` +
+                new URLSearchParams({ provider, page, search }),
+                {
+                    headers: {
+                        'X-API-Key': API_KEY
+                    }
+                }
             )
         },
         catch: () => new NetworkError('네트워크 오류가 발생했습니다')
