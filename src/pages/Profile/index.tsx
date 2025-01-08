@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getProfile } from '../../api/endpoints/profile'
 import { Effect } from 'effect'
+import Loading from '../../components/common/Loading'
 import './profile.css'
 
 interface ProfileData {
@@ -42,7 +43,7 @@ function Profile() {
     const { status, data: profile, error } = profileState
 
     if (status === 'loading') {
-        return <div>로딩 중...</div>
+        return <Loading />
     }
 
     return (
