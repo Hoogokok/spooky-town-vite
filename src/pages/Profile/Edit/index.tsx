@@ -17,7 +17,8 @@ function ProfileEdit() {
         handleCancel,
         isUploading,
         isSaving,
-        fetchError
+        fetchError,
+        successMessage,
     } = useProfileEdit()
 
     if (isLoading) {
@@ -28,6 +29,11 @@ function ProfileEdit() {
         <div className="profileEditContainer" role="main">
             <div className="profileTitle">프로필 수정</div>
             {errorMessage && <ErrorMessage message={errorMessage} />}
+            {successMessage && (
+                <div className="success" role="alert">
+                    {successMessage}
+                </div>
+            )}
             <section className="profileEditSection">
                 <ProfileImageEditor
                     imageUrl={profile?.imageUrl}

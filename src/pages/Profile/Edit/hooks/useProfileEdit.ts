@@ -15,6 +15,7 @@ export function useProfileEdit() {
     const queryClient = useQueryClient()
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
     const [selectedImage, setSelectedImage] = useState<File | null>(null)
+    const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
     const handleError = (error: Error | ProfileError) => {
         if ('_tag' in error && error._tag === 'ProfileError') {
@@ -52,6 +53,8 @@ export function useProfileEdit() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['profile'] })
             setSelectedImage(null)
+            setSuccessMessage('이미지가 성공적으로 업로드되었습니다.')
+            setTimeout(() => setSuccessMessage(null), 3000)
         },
         onError: handleError
     })
@@ -88,6 +91,7 @@ export function useProfileEdit() {
         handleCancel,
         isUploading,
         isSaving,
-        fetchError
+        fetchError,
+        successMessage,
     }
 } 

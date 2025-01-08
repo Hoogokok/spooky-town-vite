@@ -6,6 +6,7 @@ interface ProfileImageEditorProps {
     onImageUpload: (file: File) => void;
     isUploading: boolean;
     selectedImage: File | null;
+    onUploadSuccess?: () => void;
 }
 
 export function ProfileImageEditor({
@@ -13,7 +14,8 @@ export function ProfileImageEditor({
     onImageSelect,
     onImageUpload,
     isUploading,
-    selectedImage
+    selectedImage,
+    onUploadSuccess
 }: ProfileImageEditorProps) {
     const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
@@ -56,14 +58,27 @@ export function ProfileImageEditor({
                     선택
                 </button>
                 {selectedImage && (
-                    <button
-                        type="button"
-                        className="uploadImageButton"
-                        onClick={() => onImageUpload(selectedImage)}
-                        disabled={isUploading}
-                    >
-                        {isUploading ? '업로드 중...' : '저장'}
-                    </button>
+                    <>
+                        <button
+                            type="button"
+                            className="uploadImageButton"
+                            onClick={() => onImageUpload(selectedImage)}
+                            disabled={isUploading}
+                        >
+                            {isUploading ? '업로드 중...' : '저장'}
+                        </button>
+                        <button
+                            type="button"
+                            className="uploadAndGoButton"
+                            onClick={() => {
+                                onImageUpload(selectedImage)
+                                onUploadSuccess?.()
+                            }}
+                            disabled={isUploading}
+                        >
+                            저장 후 프로필로
+                        </button>
+                    </>
                 )}
             </div>
         </div>
