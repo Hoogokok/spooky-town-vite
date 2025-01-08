@@ -39,14 +39,16 @@ function GameChannel({ channelId, name, channelName, videos, error }: GameChanne
                                 <p className="videoDescription">
                                     {video.snippet.description.slice(0, 100)}...
                                 </p>
-                                <a
-                                    href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="videoLink"
-                                >
-                                    영상 보기
-                                </a>
+                                <div className="videoLinkContainer">
+                                    <a
+                                        href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="videoLink"
+                                    >
+                                        영상 보기
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     ))}
