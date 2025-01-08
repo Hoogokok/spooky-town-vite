@@ -5,6 +5,15 @@
     padding: var(--spacing-6) 0;
     background-color: var(--color-background);
     color: var(--color-text-primary);
+    width: 100%;
+}
+
+.streamingSearchContainer {
+    width: 100%;
+    position: relative;
+    max-width: var(--max-width-default);
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
 }
 
 .contentWrapper {
@@ -20,20 +29,14 @@
     justify-content: center;
 }
 
-.searchTabWrapper {
-    margin-bottom: var(--spacing-6);
-}
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .streamingContainer {
-        padding: var(--spacing-8) 0;
+        padding: var(--spacing-2) 0;
+        width: 100%;
     }
 
-    .searchTabWrapper {
-        margin-bottom: var(--spacing-8);
-    }
-
-    .paginationWrapper {
-        margin-top: var(--spacing-8);
+    .streamingSearchContainer {
+        padding: 0 var(--spacing-4);
     }
 } 

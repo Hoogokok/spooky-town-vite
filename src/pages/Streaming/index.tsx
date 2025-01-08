@@ -41,7 +41,7 @@ function StreamingPage() {
 
     return (
         <div className="streamingContainer">
-            <div className="searchTabWrapper">
+            <div className="streamingSearchContainer">
                 <MovieSearch />
             </div>
             <div className="imageGalleryWrapper">

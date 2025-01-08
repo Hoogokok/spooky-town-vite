@@ -1,17 +1,37 @@
 .streamingMovieList {
-    display: grid;
-    grid-template-columns: repeat(var(--grid-columns-lg), 1fr);
-    gap: var(--spacing-8);
-    padding: var(--spacing-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    padding: var(--spacing-2);
+    width: 100%;
+}
+
+.movieRow {
+    display: flex;
+    gap: var(--spacing-4);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: var(--spacing-2);
+    
+    /* 스크롤바 숨기기 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    
+    /* Chrome, Safari 스크롤바 숨기기 */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    
 }
 
 .streamingMovieItem {
-    width: 100%;
+    flex: 0 0 auto; /* flex-shrink: 0으로 크기 고정 */
     display: flex;
     flex-direction: column;
     text-decoration: none;
     color: inherit;
     cursor: pointer;
+    width: var(--content-poster-lg);
 }
 
 .streamingMoviePosterContainer {
@@ -62,8 +82,8 @@
 }
 
 @media (max-width: var(--breakpoint-mobile)) {
-    .streamingMovieList {
-        grid-template-columns: repeat(var(--grid-columns-sm), 1fr);
+    .movieRow {
+        gap: var(--spacing-2);
     }
 
     .streamingMovieItem {
@@ -91,6 +111,6 @@
     .streamingMovieList {
         grid-template-columns: repeat(3, 1fr);
         gap: var(--spacing-4);
-        padding: var(--spacing-5);
+        padding: var(--spacing-2);
     }
 } 
