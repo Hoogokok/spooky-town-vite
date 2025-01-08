@@ -23,4 +23,8 @@
   
   /* 네비게이션 활성 상태 색상 */
   --color-nav-active: var(--color-text-primary);
+  
+  /* 액션 컬러 */
+  --color-action-primary: rgb(229, 9, 20);
+  --color-action-primary-hover: rgb(193, 17, 25);
 } 

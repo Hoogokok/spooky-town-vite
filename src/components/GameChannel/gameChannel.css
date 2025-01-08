@@ -30,17 +30,17 @@
 .videoLink {
     display: inline-block;
     padding: var(--spacing-1) var(--spacing-2);
-    background-color: rgb(229, 9, 20);
+    background-color: var(--color-action-primary);
     border-radius: var(--radius-sm);
     text-decoration: none;
     color: var(--color-text-primary);
     font-size: var(--font-size-sm);
-    transition: background-color var(--transition-normal);
-    font-weight: 500;
+    transition: var(--transition-normal);
+    font-weight: var(--font-weight-medium);
 }
 
 .videoLink:hover {
-    background-color: rgb(193, 17, 25);
+    background-color: var(--color-action-primary-hover);
 }
 
 /* 영상보기 버튼 컨테이너 */
