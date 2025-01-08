@@ -1,12 +1,9 @@
-import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { Effect } from 'effect'
+import { useStreamingMovies } from '../../hooks/useStreamingMovies'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import MovieList from '../../components/MovieList'
 import MoviePagination from '../../components/MoviePagination'
 import MovieSkeleton from '../../components/MovieSkeleton'
-import { searchStreamingMovies } from '../../api/endpoints/streaming'
 import ErrorComponent from '../../components/common/ErrorComponent'
 import './streaming.css'
 
@@ -16,17 +13,8 @@ function StreamingPage() {
     const provider = searchParams.get('provider') || 'all'
     const page = searchParams.get('page') || '1'
     const search = searchParams.get('search') || ''
-    const [searchQuery, setSearchQuery] = useState(search)
 
-    const { data, isLoading, error } = useQuery({
-        queryKey: ['movies', provider, page, search],
-        queryFn: async () => {
-            const result = await Effect.runPromise(
-                searchStreamingMovies(provider, page, search)
-            )
-            return result
-        }
-    })
+    const { data, isLoading, error } = useStreamingMovies(provider, page, search)
 
     const handleProviderChange = (newProvider: string) => {
         setSearchParams(prev => {
@@ -41,7 +29,6 @@ function StreamingPage() {
     }
 
     const handleSearch = (query: string) => {
-        setSearchQuery(query)
         setSearchParams(prev => {
             if (query) {
                 prev.set('search', query)
@@ -69,7 +56,7 @@ function StreamingPage() {
             </select>
             <input
                 type="text"
-                value={searchQuery}
+                value={search}
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder="영화 검색"
                 className="searchInput"
@@ -85,7 +72,7 @@ function StreamingPage() {
             <button onClick={() => handleProviderChange('googleplay')} className="searchButton">구글 플레이</button>
             <input
                 type="text"
-                value={searchQuery}
+                    value={search}
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder="영화 검색"
                 className="searchInput"
