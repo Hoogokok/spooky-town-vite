@@ -6,6 +6,7 @@ import Loading from '../../../components/common/Loading'
 import { useNavigate } from 'react-router-dom'
 import './edit.css'
 import { useState, useEffect } from 'react'
+import { profileImageSchema } from '../../../api/schemas/profile'
 
 interface ProfileData {
     name: string;
@@ -83,16 +84,10 @@ function ProfileEdit() {
         const file = e.target.files?.[0]
         if (!file) return
 
-        // 파일 크기 체크 (5MB)
-        if (file.size > 5 * 1024 * 1024) {
-            setErrorMessage('이미지 크기는 5MB 이하여야 합니다.')
-            return
-        }
+        const validation = profileImageSchema.safeParse({ image: file })
 
-        // 파일 타입 체크
-        const allowedTypes = ['image/jpeg', 'image/jpg']
-        if (!allowedTypes.includes(file.type)) {
-            setErrorMessage('JPG 또는 JPEG 형식의 이미지만 업로드 가능합니다.')
+        if (!validation.success) {
+            setErrorMessage(validation.error.errors[0].message)
             return
         }
 
