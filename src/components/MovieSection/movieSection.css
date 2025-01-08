@@ -1,0 +1,52 @@
+.imagesection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: var(--color-background);
+    position: relative;
+    overflow: hidden;
+}
+
+.image {
+    margin: var(--spacing-6);
+}
+
+.buttonsection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: var(--color-background);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--spacing-10);
+}
+
+.buttonsection button {
+    margin: var(--spacing-6);
+    padding: var(--spacing-4) var(--spacing-6);
+    font-size: var(--font-size-xl);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-text-primary);
+    cursor: pointer;
+}
+
+.buttonsection button:hover {
+    background-color: var(--color-text-primary);
+    color: var(--color-background);
+}
+
+.skeleton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: var(--color-background);
+    position: relative;
+    overflow: hidden;
+} 
