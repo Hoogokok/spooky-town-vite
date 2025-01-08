@@ -1,31 +1,15 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { usePasswordChange } from './hooks/usePasswordChange'
 import './password.css'
 
 function PasswordChange() {
-    const navigate = useNavigate()
-    const [formData, setFormData] = useState({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: ''
-    })
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
-    }
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        // TODO: 비밀번호 변경 로직 구현
-    }
-
-    const handleCancel = () => {
-        navigate('/profile/edit')
-    }
+    const {
+        formData,
+        errors,
+        isLoading,
+        handleChange,
+        handleSubmit,
+        handleCancel
+    } = usePasswordChange()
 
     return (
         <div className="passwordChangeContainer" role="main">
@@ -44,7 +28,11 @@ function PasswordChange() {
                             value={formData.currentPassword}
                             onChange={handleChange}
                             placeholder="현재 비밀번호를 입력하세요"
+                            disabled={isLoading}
                         />
+                        {errors.currentPassword && (
+                            <p className="formError">{errors.currentPassword[0]}</p>
+                        )}
                     </div>
                     <div className="formGroup">
                         <label htmlFor="newPassword" className="formLabel">
@@ -58,10 +46,14 @@ function PasswordChange() {
                             value={formData.newPassword}
                             onChange={handleChange}
                             placeholder="새 비밀번호를 입력하세요"
+                            disabled={isLoading}
                         />
                         <p className="formHint">
                             영문, 숫자, 특수문자를 포함하여 8자 이상 입력해주세요
                         </p>
+                        {errors.newPassword && (
+                            <p className="formError">{errors.newPassword[0]}</p>
+                        )}
                     </div>
                     <div className="formGroup">
                         <label htmlFor="confirmPassword" className="formLabel">
@@ -75,23 +67,32 @@ function PasswordChange() {
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             placeholder="새 비밀번호를 다시 입력하세요"
+                            disabled={isLoading}
                         />
+                        {errors.confirmPassword && (
+                            <p className="formError">{errors.confirmPassword[0]}</p>
+                        )}
                     </div>
                     <div className="formActions">
                         <button
                             type="button"
                             className="cancelButton"
                             onClick={handleCancel}
+                            disabled={isLoading}
                         >
                             취소
                         </button>
                         <button
                             type="submit"
                             className="saveButton"
+                            disabled={isLoading}
                         >
-                            변경
+                            {isLoading ? '변경 중...' : '변경'}
                         </button>
                     </div>
+                    {errors.general && (
+                        <p className="formError">{errors.general}</p>
+                    )}
                 </form>
             </section>
         </div>
