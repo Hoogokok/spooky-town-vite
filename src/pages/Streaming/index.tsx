@@ -26,6 +26,12 @@ function StreamingPage() {
         }
     })
 
+    const getMoviePosterUrl = (posterPath: string) => {
+        return import.meta.env.VITE_DEV
+            ? import.meta.env.VITE_POSTER_URL + posterPath
+            : posterPath
+    }
+
     if (error) {
         return <ErrorComponent
             code="FetchError"
@@ -43,7 +49,12 @@ function StreamingPage() {
                     {isLoading ? (
                         <MovieSkeleton />
                     ) : (
-                            data?.movies && <MovieList movies={data.movies} posterUrl={import.meta.env.VITE_POSTER_URL} isDev={import.meta.env.VITE_DEV} />
+                            data?.movies && <MovieList
+                                movies={data.movies.map(movie => ({
+                                    ...movie,
+                                    posterPath: getMoviePosterUrl(movie.posterPath)
+                                }))}
+                            />
                     )}
                 </Suspense>
             </div>
