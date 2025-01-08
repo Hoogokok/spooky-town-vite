@@ -1,40 +1,26 @@
 :root {
-  /* 레이아웃 크기 */
+  /* Breakpoints */
+  --breakpoint-mobile: 600px;
+  --breakpoint-tablet: 900px;
+  --breakpoint-desktop: 1200px;
+  
+  /* Content Sizes */
+  --content-poster-sm: 140px;    /* 모바일 포스터 */
+  --content-poster-md: 180px;    /* 태블릿 포스터 */
+  --content-poster-lg: 220px;    /* 데스크탑 포스터 */
+  
+  /* Grid System */
+  --grid-columns-sm: 2;          /* 모바일 그리드 */
+  --grid-columns-md: 3;          /* 태블릿 그리드 */
+  --grid-columns-lg: 6;          /* 데스크탑 그리드 */
+  
+  /* Aspect Ratios */
+  --ratio-poster: 150%;          /* 영화 포스터 2:3 */
+  --ratio-thumbnail: 75%;        /* 매거진 썸네일 4:3 */
+
+  /* Legacy tokens - 기존 코드 호환성 유지 */
   --width-sidebar: 150px;
   --width-nav-item: 60px;
   --width-dropdown: 200px;
   --width-mobile-dropdown: 120px;
-  
-  /* 컨텐츠 크기 */
-  --width-movie-item: 180px;
-  --width-movie-item-tablet: 200px;
-  --width-movie-item-desktop: 220px;
-  --width-video-item: 300px;
-  --width-video-item-mobile: 250px;
-  --width-video-item-desktop: 320px;
-  
-  /* z-index 레이어 */
-  --z-index-dropdown: 1000;
-  --z-index-fixed: 1030;
-  --z-index-modal: 1050;
-  
-  /* 반응형 */
-  --breakpoint-mobile: 768px;
-  --breakpoint-tablet: 1024px;
-  
-  /* 네비게이션 크기 */
-  --spacing-nav-mobile: 60px;  /* 모바일 네비게이션 높이 */
-  
-  /* 스트리밍 ��화 포스터 크기 */
-  --width-poster-mobile: 140px;
-  --width-poster-tablet: 160px;
-  --width-poster-desktop: 180px;
-  
-  /* 그리드 열 개수 */
-  --grid-columns-mobile: 2;
-  --grid-columns-tablet: 3;
-  --grid-columns-desktop: 6;
-  
-  /* 포스터 비율 */
-  --aspect-ratio-poster: 150%;
 } 
