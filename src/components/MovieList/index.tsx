@@ -17,6 +17,8 @@ function MovieList({ movies }: MovieListProps) {
                                 ? movie.posterPath
                                 : import.meta.env.VITE_POSTER_URL + movie.posterPath
                             }
+                            width={250}
+                            height={300}
                             alt={movie.title}
                             className="streamingMoviePoster"
                             loading="lazy"
