@@ -8,18 +8,18 @@ interface MovieListProps {
 
 function MovieList({ movies }: MovieListProps) {
     return (
-        <div className="movieList">
+        <div className="streamingMovieList">
             {movies.map((movie: Movie) => (
-                <Link to={`/movie/${movie.id}/streaming`} key={movie.id} className="movieItem">
-                    <div className="moviePosterContainer">
+                <Link to={`/movie/${movie.id}/streaming`} key={movie.id} className="streamingMovieItem">
+                    <div className="streamingMoviePosterContainer">
                         <img
                             src={import.meta.env.VITE_POSTER_URL + movie.posterPath}
                             alt={movie.title}
-                            className="moviePoster"
+                            className="streamingMoviePoster"
                             loading="lazy"
                         />
                     </div>
-                    <div className="movieTitle">
+                    <div className="streamingMovieTitle">
                         {movie.title}
                     </div>
                 </Link>
