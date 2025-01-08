@@ -49,9 +49,17 @@ export const passwordChangeSchema = z.object({
     newPassword: z
         .string()
         .min(8, "비밀번호는 8자 이상이어야 합니다")
+        .max(100, "비밀번호가 너무 깁니다")
+        .regex(/[A-Z]/, "대문자를 포함해야 합니다")
+        .regex(/[a-z]/, "소문자를 포함해야 합니다")
+        .regex(/[0-9]/, "숫자를 포함해야 합니다")
         .regex(
-            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/,
-            "영문, 숫자, 특수문자를 포함해야 합니다"
+            /[^A-Za-z0-9]/,
+            "특수문자를 포함해야 합니다"
+        )
+        .refine(
+            (password) => !/\s/.test(password),
+            "공백은 포함할 수 없습니다"
         ),
 
     confirmPassword: z
@@ -62,6 +70,12 @@ export const passwordChangeSchema = z.object({
     {
         message: "새 비밀번호가 일치하지 않습니다",
         path: ["confirmPassword"]
+    }
+).refine(
+    (data) => data.currentPassword !== data.newPassword,
+    {
+        message: "새 비밀번호는 현재 비밀번호와 달라야 합니다",
+        path: ["newPassword"]
     }
 )
 
