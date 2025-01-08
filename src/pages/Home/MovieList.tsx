@@ -15,8 +15,6 @@ export default function MovieList({ movies, type }: MovieListProps) {
                     <img
                         alt={movie.title}
                         src={import.meta.env.VITE_POSTER_URL + movie.posterPath}
-                        width={250}
-                        height={300}
                         className="movieImage"
                         loading={type === "upcoming" ? "eager" : "lazy"}
                     />
