@@ -1,12 +1,7 @@
 import { Effect } from 'effect'
 import { ApiError, NetworkError } from '../../types/error'
-import { Movie } from '../../types/movie'
+import { StreamingMovie, MovieSearchResponse } from '../../types/api/movie'
 import { getMockStreamingMovies } from '../../mocks/streamingMovies'
-
-interface MovieSearchResponse {
-    movies: Movie[];
-    totalPages: number;
-}
 
 const BASE_URL = import.meta.env.VITE_MOVIE_API
 const API_KEY = import.meta.env.VITE_MOVIE_API_KEY
