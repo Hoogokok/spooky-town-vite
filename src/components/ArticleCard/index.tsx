@@ -23,7 +23,9 @@ function ArticleCard({ article }: ArticleCardProps) {
                     className="articleLink"
                     aria-label={`${article.title} - 새 창에서 열기`}
                 >
-                    <h2 className="articleTitle">{article.title}</h2>
+                    <h2 className="articleTitle" role="heading" aria-level={2}>
+                        {article.title}
+                    </h2>
                 </a>
                 {article.author && (
                     <p className="articleAuthor" aria-label="작성자">
