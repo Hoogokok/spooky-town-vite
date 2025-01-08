@@ -7,9 +7,9 @@ interface MovieListProps {
 }
 
 function MovieList({ movies }: MovieListProps) {
-    // 6개씩 영화를 그룹화하는 함수
+    // 8개씩 영화를 그룹화하는 함수로 변경
     const movieRows = movies.reduce((acc: Movie[][], curr, i) => {
-        if (i % 6 === 0) acc.push([]);
+        if (i % 8 === 0) acc.push([]);
         acc[acc.length - 1].push(curr);
         return acc;
     }, []);
