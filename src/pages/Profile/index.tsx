@@ -16,6 +16,11 @@ function Profile() {
         queryFn: () => Effect.runPromise(getProfile)
     })
 
+    const handleEditClick = () => {
+        // TODO: 프로필 편집 모드로 전환
+        console.log('프로필 편집')
+    }
+
     if (isLoading) {
         return <Loading />
     }
@@ -42,6 +47,15 @@ function Profile() {
                         <h2 className="profileName">{profile?.name || '사용자 이름'}</h2>
                         <p className="profileEmail">{profile?.email || 'user@example.com'}</p>
                     </div>
+                </div>
+                <div className="profileActions">
+                    <button
+                        className="editButton"
+                        onClick={handleEditClick}
+                        aria-label="프로필 편집"
+                    >
+                        프로필 편집
+                    </button>
                 </div>
             </section>
             {error && <div className="error">{(error as Error).message}</div>}
