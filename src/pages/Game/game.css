@@ -1,0 +1,141 @@
+.channelList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    padding: var(--spacing-5);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+}
+
+.channelList h1 {
+    text-align: center;
+    margin-bottom: var(--spacing-5);
+    font-size: var(--font-size-xl);
+    font-family: var(--font-family-korean);
+}
+
+.channelItem {
+    border: 1px solid var(--color-surface);
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+}
+
+.channelName {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-2);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-korean);
+}
+
+.channelLink {
+    display: inline-block;
+    margin-bottom: var(--spacing-4);
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--color-button);
+    border-radius: var(--radius-base);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    transition: background-color var(--transition-normal);
+}
+
+.channelLink:hover {
+    background-color: var(--color-button-hover);
+}
+
+.latestVideos {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: var(--spacing-5);
+    padding-bottom: var(--spacing-4);
+    scroll-snap-type: x mandatory;
+}
+
+.videoItem {
+    flex: 0 0 auto;
+    width: var(--width-video-item);
+    display: flex;
+    flex-direction: column;
+    scroll-snap-align: start;
+}
+
+.thumbnailContainer {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 56.25%; /* 16:9 비율 */
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+.videoInfo {
+    margin-top: var(--spacing-2);
+}
+
+.videoTitle {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--color-text-primary);
+}
+
+.videoDescription {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-2);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.videoLink {
+    display: inline-block;
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--color-button);
+    border-radius: var(--radius-base);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-sm);
+    transition: background-color var(--transition-normal);
+}
+
+.videoLink:hover {
+    background-color: var(--color-button-hover);
+}
+
+@media (max-width: 768px) {
+    .videoItem {
+        width: var(--width-video-item-mobile);
+    }
+    
+    .channelName {
+        font-size: var(--font-size-lg);
+    }
+    
+    .videoTitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .videoDescription {
+        font-size: var(--font-size-xs);
+    }
+}
+
+@media (min-width: 1200px) {
+    .latestVideos {
+        gap: var(--spacing-8);
+    }
+    
+    .videoItem {
+        width: var(--width-video-item-desktop);
+    }
+    
+    .videoTitle {
+        font-size: var(--font-size-md);
+    }
+} 
