@@ -1,17 +1,12 @@
-interface MobileSearchTabProps {
-    onProviderChange: (provider: string) => void
-    onSearch: (query: string) => void
-    provider: string
-    search: string
-}
+import { SearchTabProps } from './types'
 
-export default function MobileSearchTab({ onProviderChange, onSearch, provider, search }: MobileSearchTabProps) {
+export default function MobileSearchTab(props: SearchTabProps) {
     return (
         <div className="searchTabWrapper">
             <select
-                onChange={(e) => onProviderChange(e.target.value)}
+                onChange={(e) => props.onProviderChange(e.target.value)}
                 className="mobileSelect"
-                value={provider}
+                value={props.provider}
             >
                 <option value="all">전체</option>
                 <option value="netflix">넷플릭스</option>
@@ -22,8 +17,8 @@ export default function MobileSearchTab({ onProviderChange, onSearch, provider, 
             </select>
             <input
                 type="text"
-                value={search}
-                onChange={(e) => onSearch(e.target.value)}
+                value={props.search}
+                onChange={(e) => props.onSearch(e.target.value)}
                 placeholder="영화 검색"
                 className="searchInput"
             />
