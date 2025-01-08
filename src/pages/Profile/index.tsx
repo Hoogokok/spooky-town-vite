@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getProfile } from '../../api/endpoints/profile'
 import { Effect } from 'effect'
 import Loading from '../../components/common/Loading'
+import { useNavigate } from 'react-router-dom'
 import './profile.css'
 
 interface ProfileData {
@@ -11,14 +12,14 @@ interface ProfileData {
 }
 
 function Profile() {
+    const navigate = useNavigate()
     const { data: profile, isLoading, error } = useQuery<ProfileData>({
         queryKey: ['profile'],
         queryFn: () => Effect.runPromise(getProfile)
     })
 
     const handleEditClick = () => {
-        // TODO: 프로필 편집 모드로 전환
-        console.log('프로필 편집')
+        navigate('/profile/edit')
     }
 
     if (isLoading) {
