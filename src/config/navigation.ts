@@ -7,7 +7,7 @@ export const navItems = [
         alt: '홈 아이콘'
     },
     {
-        href: '/videos',
+        href: '/streaming',
         icon: '/icons/video.svg',
         label: '영상',
         alt: '영상 아이콘'
