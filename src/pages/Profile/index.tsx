@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { getProfile } from '../../api/endpoints/profile'
 import { Effect } from 'effect'
 import Loading from '../../components/common/Loading'
@@ -10,39 +10,13 @@ interface ProfileData {
     imageUrl?: string;
 }
 
-type ProfileState = {
-    status: 'idle' | 'loading' | 'success' | 'error';
-    data: ProfileData | null;
-    error: string | null;
-}
-
 function Profile() {
-    const [profileState, setProfileState] = useState<ProfileState>({
-        status: 'idle',
-        data: null,
-        error: null
+    const { data: profile, isLoading, error } = useQuery<ProfileData>({
+        queryKey: ['profile'],
+        queryFn: () => Effect.runPromise(getProfile)
     })
 
-    useEffect(() => {
-        setProfileState(prev => ({ ...prev, status: 'loading' }))
-
-        Effect.runPromise(getProfile).then(
-            (result) => setProfileState({
-                status: 'success',
-                data: result,
-                error: null
-            }),
-            (error) => setProfileState({
-                status: 'error',
-                data: null,
-                error: error.message
-            })
-        )
-    }, [])
-
-    const { status, data: profile, error } = profileState
-
-    if (status === 'loading') {
+    if (isLoading) {
         return <Loading />
     }
 
@@ -70,7 +44,7 @@ function Profile() {
                     </div>
                 </div>
             </section>
-            {error && <div className="error">{error}</div>}
+            {error && <div className="error">{(error as Error).message}</div>}
         </div>
     )
 }
