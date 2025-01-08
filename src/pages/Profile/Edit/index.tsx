@@ -5,7 +5,7 @@ import { Effect } from 'effect'
 import Loading from '../../../components/common/Loading'
 import { useNavigate } from 'react-router-dom'
 import './edit.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface ProfileData {
     name: string;
@@ -17,6 +17,7 @@ function ProfileEdit() {
     const navigate = useNavigate()
     const queryClient = useQueryClient()
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
     const { data: profile, isLoading, error: fetchError } = useQuery<ProfileData>({
         queryKey: ['profile'],
@@ -94,8 +95,21 @@ function ProfileEdit() {
             return
         }
 
+        // 미리보기 URL 생성
+        const objectUrl = URL.createObjectURL(file)
+        setPreviewUrl(objectUrl)
+
         imageMutation.mutate(file)
     }
+
+    // 컴포넌트 언마운트 시 URL 정리
+    useEffect(() => {
+        return () => {
+            if (previewUrl) {
+                URL.revokeObjectURL(previewUrl)
+            }
+        }
+    }, [previewUrl])
 
     if (isLoading) {
         return <Loading />
@@ -113,7 +127,7 @@ function ProfileEdit() {
                 <form onSubmit={handleSubmit} className="profileEditForm">
                     <div className="profileEditAvatar">
                         <img
-                            src={profile?.imageUrl || '/icons/profile.svg'}
+                            src={previewUrl || profile?.imageUrl || '/icons/profile.svg'}
                             alt="프로필 이미지"
                         />
                         <input
