@@ -8,6 +8,7 @@ import Signup from './pages/Signup'
 import Magazine from './pages/Magazine'
 import Game from './pages/Game'
 import StreamingPage from './pages/Streaming'
+import Profile from './pages/Profile'
 
 const queryClient = new QueryClient()
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/magazine" element={<Magazine />} />
             <Route path="/games" element={<Game />} />
             <Route path="/streaming" element={<StreamingPage />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </MainLayout>
       </BrowserRouter>
