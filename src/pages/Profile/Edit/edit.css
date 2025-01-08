@@ -127,4 +127,14 @@
     font-size: var(--font-size-sm);
     margin-top: var(--spacing-1);
     font-family: var(--font-family-base);
+}
+
+.error {
+    background-color: var(--color-error);
+    color: var(--color-text-primary);
+    padding: var(--spacing-3);
+    border-radius: var(--radius-base);
+    margin-bottom: var(--spacing-4);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
 } 

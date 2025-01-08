@@ -5,6 +5,7 @@ import { Effect } from 'effect'
 import Loading from '../../../components/common/Loading'
 import { useNavigate } from 'react-router-dom'
 import './edit.css'
+import { useState } from 'react'
 
 interface ProfileData {
     name: string;
@@ -15,7 +16,9 @@ interface ProfileData {
 function ProfileEdit() {
     const navigate = useNavigate()
     const queryClient = useQueryClient()
-    const { data: profile, isLoading, error } = useQuery<ProfileData>({
+    const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+    const { data: profile, isLoading, error: fetchError } = useQuery<ProfileData>({
         queryKey: ['profile'],
         queryFn: () => Effect.runPromise(getProfile)
     })
@@ -27,8 +30,20 @@ function ProfileEdit() {
             navigate('/profile')
         },
         onError: (error: Error) => {
-            // TODO: 에러 처리
-            console.error(error.message)
+            if (error && '_tag' in error && error._tag === 'ProfileError') {
+                switch (error.message) {
+                    case '프로필 업데이트에 실패했습니다':
+                        setErrorMessage('프로필을 수정하는 중에 문제가 발생했어요. 잠시 후 다시 시도해주세요.')
+                        break
+                    case '인증이 필요합니다':
+                        setErrorMessage('로그인이 필요한 기능이에요.')
+                        break
+                    default:
+                        setErrorMessage('알 수 없는 오류가 발생했어요. 잠시 후 다시 시도해주세요.')
+                }
+            } else {
+                setErrorMessage('알 수 없는 오류가 발생했어요. 잠시 후 다시 시도해주세요.')
+            }
         }
     })
 
@@ -51,6 +66,11 @@ function ProfileEdit() {
     return (
         <div className="profileEditContainer" role="main">
             <div className="profileTitle">프로필 수정</div>
+            {errorMessage && (
+                <div className="error" role="alert">
+                    {errorMessage}
+                </div>
+            )}
             <section className="profileEditSection">
                 <form onSubmit={handleSubmit} className="profileEditForm">
                     <div className="profileEditAvatar">
@@ -97,7 +117,7 @@ function ProfileEdit() {
                     </div>
                 </form>
             </section>
-            {error && <div className="error">{(error as Error).message}</div>}
+            {fetchError && <div className="error">{(fetchError as Error).message}</div>}
         </div>
     )
 }
