@@ -2,15 +2,17 @@
   max-width: 800px;
   margin: 0 auto;
   padding: var(--spacing-6) var(--spacing-4);
+  padding-top: var(--spacing-10);
 }
 
 .magazineTitle {
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-2xl);
   font-weight: bold;
-  margin-bottom: var(--spacing-6);
+  margin-bottom: var(--spacing-4);
   text-align: center;
   color: var(--color-primary);
   font-family: var(--font-family-display);
+  letter-spacing: -0.5px;
 }
 
 .articlesGrid {
