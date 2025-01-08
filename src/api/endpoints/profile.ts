@@ -81,4 +81,33 @@ export const updateProfile = (data: ProfileUpdateInput) => Effect.gen(function* 
     }
 
     return response.json()
+})
+
+export const uploadProfileImage = (file: File) => Effect.gen(function* (_) {
+    const session = yield* _(Effect.tryPromise(() => getSession()))
+    const token = session?.data.session?.access_token
+
+    if (!token) {
+        throw new ProfileError('인증이 필요합니다')
+    }
+
+    const formData = new FormData()
+    formData.append('image', file)
+
+    const response = yield* _(Effect.tryPromise(() =>
+        fetch(`${import.meta.env.VITE_API_URL}/users/profile/image`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'X-API-Key': import.meta.env.VITE_API_KEY
+            },
+            body: formData
+        })
+    ))
+
+    if (!response.ok) {
+        throw new ProfileError('이미지 업로드에 실패했습니다')
+    }
+
+    return response.json()
 }) 

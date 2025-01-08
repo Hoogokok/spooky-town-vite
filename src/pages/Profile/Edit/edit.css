@@ -137,4 +137,13 @@
     margin-bottom: var(--spacing-4);
     font-family: var(--font-family-base);
     font-size: var(--font-size-base);
+}
+
+.hidden {
+    display: none;
+}
+
+.changeImageButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 } 
