@@ -5,17 +5,17 @@
   --breakpoint-desktop: 1200px;
   
   /* Content Sizes */
-  --content-poster-sm: 120px;    /* 모바일 포스터 크기 축소 */
-  --content-poster-md: 160px;    /* 태블릿 포스터 크기 조정 */
-  --content-poster-lg: 200px;    /* 데스크탑 포스터 크기 조정 */
+  --content-poster-sm: 140px;    /* 모바일 포스터 크기 */
+  --content-poster-md: 180px;    /* 태블릿 포스터 크기 */
+  --content-poster-lg: 240px;    /* 데스크탑 포스터 크기 */
   
   /* Grid System */
-  --grid-columns-sm: 2;          /* 모바일 2열 유지 */
-  --grid-columns-md: 4;          /* 태블릿 4열로 조정 */
-  --grid-columns-lg: 5;          /* 데스크탑 5열로 조정 */
+  --grid-columns-sm: 2;          /* 모바일 2열 */
+  --grid-columns-md: 4;          /* 태블릿 4열 */
+  --grid-columns-lg: 8;          /* �스크탑 8열 */
   
   /* Aspect Ratios */
-  --ratio-poster: 150%;          /* 영화 포스터 2:3 */
+  --ratio-poster: 150%;          /* 영화 포스터 2:3 비율 유지 */
   --ratio-thumbnail: 75%;        /* 매거진 썸네일 4:3 */
 
   /* Legacy tokens - 기존 코드 호환성 유지 */
