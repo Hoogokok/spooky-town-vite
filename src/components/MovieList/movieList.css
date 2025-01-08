@@ -77,9 +77,34 @@
 
 @media (max-width: 600px) {
     .streamingMovieList {
-        grid-template-columns: repeat(2, 1fr);
+        display: grid;
+        grid-template-columns: repeat(3, 140px);
         gap: var(--spacing-3);
-        padding: var(--spacing-4);
+        justify-content: center;
+        padding: var(--spacing-2);
+    }
+
+    .streamingMovieItem {
+        width: 140px;
+    }
+
+    .streamingMoviePosterContainer {
+        padding-top: 140%;
+        margin-bottom: var(--spacing-2);
+        border-radius: var(--radius-base);
+    }
+
+    .streamingMoviePoster {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .streamingMovieTitle {
+        font-size: var(--font-size-sm);
+        margin-top: var(--spacing-1);
+        line-height: var(--line-height-snug);
+        padding: 0 var(--spacing-1);
     }
 }
 
@@ -96,5 +121,13 @@
 @media (min-width: 1200px) {
     .streamingMovieTitle {
         font-size: var(--font-size-2xl);
+    }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+    .streamingMovieList {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-4);
+        padding: var(--spacing-5);
     }
 } 
