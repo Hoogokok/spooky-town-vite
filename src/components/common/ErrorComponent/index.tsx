@@ -4,13 +4,18 @@ import './errorComponent.css'
 interface ErrorComponentProps {
     code?: string
     message?: string
+    retry?: () => void
 }
 
-function ErrorComponent({ code, message }: ErrorComponentProps) {
+function ErrorComponent({ code, message, retry }: ErrorComponentProps) {
     const navigate = useNavigate()
 
     const handleRetry = () => {
-        navigate(0) // 현재 페이지 새로고침
+        if (retry) {
+            retry()
+        } else {
+            navigate(0)
+        }
     }
 
     return (

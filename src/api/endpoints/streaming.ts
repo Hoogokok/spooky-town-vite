@@ -1,6 +1,7 @@
 import { Effect } from 'effect'
 import { ApiError, NetworkError } from '../../types/error'
 import { Movie } from '../../types/movie'
+import { getMockStreamingMovies } from '../../mocks/streamingMovies'
 
 interface MovieSearchResponse {
     movies: Movie[];
@@ -9,10 +10,18 @@ interface MovieSearchResponse {
 
 const fetchFromApi = (provider: string, page: string, search: string) =>
     Effect.tryPromise({
-        try: () => fetch(
-            `${import.meta.env.VITE_API_URL}/movies/streaming?` +
-            new URLSearchParams({ provider, page, search })
-        ),
+        try: async () => {
+            if (import.meta.env.DEV) {
+                return new Response(JSON.stringify(
+                    getMockStreamingMovies(provider, page, search)
+                ))
+            }
+
+            return fetch(
+                `${import.meta.env.VITE_API_URL}/movies/streaming?` +
+                new URLSearchParams({ provider, page, search })
+            )
+        },
         catch: () => new NetworkError('네트워크 오류가 발생했습니다')
     })
 
