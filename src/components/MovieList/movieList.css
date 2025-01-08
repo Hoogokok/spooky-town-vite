@@ -78,7 +78,7 @@
 @media (max-width: 600px) {
     .streamingMovieList {
         display: grid;
-        grid-template-columns: repeat(3, 140px);
+        grid-template-columns: repeat(2, 140px);
         gap: var(--spacing-3);
         justify-content: center;
         padding: var(--spacing-2);
