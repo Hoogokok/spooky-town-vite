@@ -8,6 +8,7 @@ import MoviePagination from '../../components/MoviePagination'
 import MovieSkeleton from '../../components/MovieSkeleton'
 import { searchStreamingMovies } from '../../api/endpoints/streaming'
 import './streaming.css'
+import ErrorComponent from '../../components/common/ErrorComponent'
 
 function StreamingPage() {
     const [searchParams] = useSearchParams()
@@ -15,7 +16,7 @@ function StreamingPage() {
     const page = searchParams.get('page') || '1'
     const search = searchParams.get('search') || ''
 
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, error } = useQuery({
         queryKey: ['movies', provider, page, search],
         queryFn: async () => {
             const result = await Effect.runPromise(
@@ -24,6 +25,13 @@ function StreamingPage() {
             return result
         }
     })
+
+    if (error) {
+        return <ErrorComponent
+            code="FetchError"
+            message="영화 정보를 불러오는데 실패했습니다"
+        />
+    }
 
     return (
         <div className="streamingContainer">
