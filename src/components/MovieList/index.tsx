@@ -13,7 +13,10 @@ function MovieList({ movies }: MovieListProps) {
                 <Link to={`/movie/${movie.id}/streaming`} key={movie.id} className="streamingMovieItem">
                     <div className="streamingMoviePosterContainer">
                         <img
-                            src={import.meta.env.VITE_POSTER_URL + movie.posterPath}
+                            src={import.meta.env.DEV
+                                ? movie.posterPath
+                                : import.meta.env.VITE_POSTER_URL + movie.posterPath
+                            }
                             alt={movie.title}
                             className="streamingMoviePoster"
                             loading="lazy"
