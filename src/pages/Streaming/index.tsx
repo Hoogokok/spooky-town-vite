@@ -1,11 +1,12 @@
 import { useSearchParams } from 'react-router-dom'
 import { Suspense } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { Effect } from 'effect'
 import MovieList from '../../components/MovieList'
 import MovieSearch from '../../components/MovieSearch'
 import MoviePagination from '../../components/MoviePagination'
 import MovieSkeleton from '../../components/MovieSkeleton'
-import { useQuery } from '@tanstack/react-query'
-import { searchMovies } from '../../api/movie'
+import { searchStreamingMovies } from '../../api/endpoints/streaming'
 import './streaming.css'
 
 function StreamingPage() {
@@ -16,7 +17,12 @@ function StreamingPage() {
 
     const { data, isLoading } = useQuery({
         queryKey: ['movies', provider, page, search],
-        queryFn: () => searchMovies(provider, page, search)
+        queryFn: async () => {
+            const result = await Effect.runPromise(
+                searchStreamingMovies(provider, page, search)
+            )
+            return result
+        }
     })
 
     return (
