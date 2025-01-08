@@ -1,23 +1,49 @@
-import React from 'react'
 import { useEffect, useState } from 'react'
 import { getProfile } from '../../api/endpoints/profile'
 import { Effect } from 'effect'
 import './profile.css'
 
+interface ProfileData {
+    name: string;
+    email: string;
+    imageUrl?: string;
+}
+
+type ProfileState = {
+    status: 'idle' | 'loading' | 'success' | 'error';
+    data: ProfileData | null;
+    error: string | null;
+}
+
 function Profile() {
-    const [profile, setProfile] = useState<{
-        name: string;
-        email: string;
-        imageUrl?: string;
-    } | null>(null)
-    const [error, setError] = useState<string | null>(null)
+    const [profileState, setProfileState] = useState<ProfileState>({
+        status: 'idle',
+        data: null,
+        error: null
+    })
 
     useEffect(() => {
+        setProfileState(prev => ({ ...prev, status: 'loading' }))
+
         Effect.runPromise(getProfile).then(
-            (result) => setProfile(result),
-            (error) => setError(error.message)
+            (result) => setProfileState({
+                status: 'success',
+                data: result,
+                error: null
+            }),
+            (error) => setProfileState({
+                status: 'error',
+                data: null,
+                error: error.message
+            })
         )
     }, [])
+
+    const { status, data: profile, error } = profileState
+
+    if (status === 'loading') {
+        return <div>로딩 중...</div>
+    }
 
     return (
         <div className="profileContainer" role="main">
