@@ -1,46 +1,30 @@
 import './gameChannel.css'
-import { useQuery } from '@tanstack/react-query'
-import { Effect } from 'effect'
-import { fetchLatestVideos } from '../../api/endpoints/game'
-import Loading from '../common/Loading'
+import { Video } from '../../api/endpoints/game'
 import ErrorComponent from '../common/ErrorComponent'
 
 interface GameChannelProps {
     channelId: string
     name: string
     channelName: string
+    videos?: Video[]
+    error?: unknown
 }
 
-function GameChannel({ channelId, name, channelName }: GameChannelProps) {
+function GameChannel({ channelId, name, channelName, videos, error }: GameChannelProps) {
     const channelUrl = `https://www.youtube.com/@${name}`
 
-    const { data: videos, isLoading, error } = useQuery({
-        queryKey: ['videos', channelId],
-        queryFn: () => Effect.runPromise(fetchLatestVideos(channelId))
-    })
-
-    if (isLoading) return <Loading />
-
     if (error) {
-        return <ErrorComponent
-            code="FetchError"
-            message="비디오를 불러오는데 실패했습니다"
-        />
+        return <ErrorComponent code="FetchError" message="비디오를 불러오는데 실패했습니다" />
     }
 
     return (
         <div className="channelItem">
             <h3 className="channelName">{channelName}</h3>
-            <a
-                href={channelUrl}
-                target="_blank"
-                rel="noopener noreferrer" 
-                className="channelLink"
-            >
+            <a href={channelUrl} target="_blank" rel="noopener noreferrer" className="channelLink">
                 채널 방문하기
             </a>
             {videos && videos.length > 0 && (
-                <div className="latestVideos">
+                <div className="videoList">
                     {videos.map(video => (
                         <div key={video.id.videoId} className="videoItem">
                             <div className="thumbnailContainer">
