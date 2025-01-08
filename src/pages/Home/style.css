@@ -4,12 +4,15 @@
     color: var(--color-text-primary);
     padding: var(--spacing-5);
     padding-top: var(--spacing-10);
+    max-width: 100%;
+    overflow-x: hidden;
   }
   
   .imagesection {
     margin-bottom: var(--spacing-10);
     position: relative;
-    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
   }
   
   .imagesectionTitle {
@@ -24,13 +27,12 @@
     display: flex;
     overflow-x: auto;
     gap: var(--spacing-10);
-    padding-top: var(--spacing-3);
-    padding-left: var(--spacing-3);
-    padding-right: var(--spacing-3);
-    padding-bottom: var(--spacing-3);
+    padding: var(--spacing-3);
     scrollbar-width: none;
     -ms-overflow-style: none;
     scroll-snap-type: x mandatory;
+    position: relative;
+    width: 100%;
   }
   
   .movieContent::-webkit-scrollbar {
@@ -170,5 +172,26 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: var(--spacing-4);
+}
+  
+@media (max-width: 768px) {
+    .main {
+        padding: var(--spacing-2);
+    }
+
+    .imagesection {
+        margin: 0 calc(-1 * var(--spacing-2));
+        width: calc(100% + (var(--spacing-2) * 2));
+    }
+
+    .movieContent {
+        padding: var(--spacing-2);
+        gap: var(--spacing-4);
+    }
+
+    .movieContent::before,
+    .movieContent::after {
+        display: none;
+    }
 }
   
