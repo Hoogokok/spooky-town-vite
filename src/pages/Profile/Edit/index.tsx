@@ -54,17 +54,12 @@ function ProfileEdit() {
                             className="formInput"
                             defaultValue={profile?.name}
                             placeholder="이름을 입력하세요"
+                            minLength={2}
+                            maxLength={20}
                         />
-                    </div>
-                    <div className="formGroup">
-                        <label htmlFor="email" className="formLabel">이메일</label>
-                        <input
-                            id="email"
-                            type="email"
-                            className="formInput"
-                            defaultValue={profile?.email}
-                            disabled
-                        />
+                        <p className="formHint">
+                        이름은 최소 2자, 최대 20자까지 입력이 가능해요 수정한 정보는 다른 서비스에도 동일하게 표시돼요
+                        </p>
                     </div>
                     <div className="formActions">
                         <button type="button" className="cancelButton" onClick={handleCancel}>
