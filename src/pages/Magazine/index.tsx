@@ -30,11 +30,18 @@ function Magazine() {
     }
 
     return (
-        <div className="magazineContainer">
-            <h1 className="magazineTitle">Fangoria</h1>
-            <div className="articlesGrid">
+        <div className="magazineContainer" role="main">
+            <h1 className="magazineTitle" id="magazine-title">Fangoria</h1>
+            <div
+                className="articlesGrid"
+                role="feed"
+                aria-labelledby="magazine-title"
+            >
                 {result.map((article, index) => (
-                    <ArticleCard key={index} article={article} />
+                    <ArticleCard
+                        key={article.url}
+                        article={article}
+                    />
                 ))}
             </div>
         </div>
