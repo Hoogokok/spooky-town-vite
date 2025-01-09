@@ -4,6 +4,7 @@ import { reviewApi } from '../../../../api/endpoints/review'
 import Loading from '../../../../components/common/Loading'
 import ErrorComponent from '../../../../components/common/ErrorComponent'
 import './reviewSection.css'
+import ReviewForm from '../ReviewForm'
 
 interface ReviewSectionProps {
     movieId: string
@@ -23,6 +24,7 @@ export default function ReviewSection({ movieId }: ReviewSectionProps) {
     return (
         <section className="reviewSection">
             <h2 className="reviewTitle">리뷰</h2>
+            <ReviewForm movieId={movieId} />
             { reviewsData && reviewsData.reviews.length > 0 ? (
                 <div className="reviewList">
                     {reviewsData.reviews.map((review) => (
