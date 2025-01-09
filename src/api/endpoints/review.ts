@@ -28,7 +28,7 @@ const parseResponse = <T>(response: Response) => Effect.tryPromise({
 // 리뷰 목록 조회
 const fetchReviews = (movieId: string, page = 1): Effect.Effect<ReviewsResponse, FetchError | NetworkError, never> =>
     Effect.gen(function* (_) {
-        const response = yield* _(fetchFromApi(`/reviews/movie/${movieId}?page=${page}`))
+        const response = yield* _(fetchFromApi(`/reviews/movie/${(movieId)}?page=${page}`))
 
         if (!response.ok) {
             return yield* _(Effect.fail(new FetchError('리뷰를 불러오는데 실패했습니다')))
@@ -38,7 +38,7 @@ const fetchReviews = (movieId: string, page = 1): Effect.Effect<ReviewsResponse,
     })
 
 // 리뷰 작성
-const createReview = (movieId: string, input: ReviewInput): Effect.Effect<Review, FetchError | NetworkError | ReviewError, never> =>
+const createReview = (movieId: string, input: ReviewInput) =>
     Effect.gen(function* (_) {
         const token = localStorage.getItem('token')
         if (!token) {
@@ -54,16 +54,24 @@ const createReview = (movieId: string, input: ReviewInput): Effect.Effect<Review
         }))
 
         if (!response.ok) {
-            const error = yield* _(parseResponse<ReviewError>(response))
-            return yield* _(Effect.fail(error))
+            const errorData = yield* _(parseResponse<ReviewError>(response))
+            return yield* _(Effect.fail(errorData))
         }
 
         return yield* _(parseResponse<Review>(response))
     })
 
 // 리뷰 수정
-const updateReview = (reviewId: string, input: ReviewInput): Effect.Effect<Review, FetchError | NetworkError | ReviewError, never> =>
+const updateReview = (reviewId: string, input: ReviewInput) =>
     Effect.gen(function* (_) {
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return yield* _(Effect.fail<ReviewError>({
+                code: 'Unauthorized',
+                message: '로그인이 필요합니다'
+            }))
+        }
+
         const response = yield* _(fetchFromApi(`/reviews/movie/${reviewId}`, {
             method: 'PUT',
             body: JSON.stringify(input)
@@ -78,8 +86,16 @@ const updateReview = (reviewId: string, input: ReviewInput): Effect.Effect<Revie
     })
 
 // 리뷰 삭제
-const deleteReview = (reviewId: string): Effect.Effect<void, FetchError | NetworkError | ReviewError, never> =>
+const deleteReview = (reviewId: string) =>
     Effect.gen(function* (_) {
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return yield* _(Effect.fail<ReviewError>({
+                code: 'Unauthorized',
+                message: '로그인이 필요합니다'
+            }))
+        }
+
         const response = yield* _(fetchFromApi(`/reviews/movie/${reviewId}`, {
             method: 'DELETE'
         }))
