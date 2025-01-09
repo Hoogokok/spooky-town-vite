@@ -7,10 +7,13 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "vite preview --port 5173",
     "test": "vitest",
     "test:watch": "vitest watch",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "start": "pm2 start ecosystem.config.js",
+    "stop": "pm2 stop spooky-town",
+    "restart": "pm2 restart spooky-town"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
