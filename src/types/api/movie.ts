@@ -23,11 +23,11 @@ export interface MovieDetail {
     title: string
     posterPath: string
     overview: string
+    watchProviders?: string[]
 }
 
-// 스트리밍 영화 상세 정보 타입
 export interface StreamingMovieDetail extends MovieDetail {
-    streamingProviders: string[]
+    expirationDate?: string
 }
 
 // 극장 영화 상세 정보 타입
