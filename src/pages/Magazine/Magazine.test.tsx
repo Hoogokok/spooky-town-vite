@@ -3,7 +3,6 @@ import { render, screen, waitFor, renderHook } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Magazine from './index'
 import { Effect } from 'effect'
-import { ApiError } from '../../types/error'
 import { useQuery } from '@tanstack/react-query'
 
 const mockFetchArticles = vi.fn()
