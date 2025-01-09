@@ -47,9 +47,17 @@ export default function ReviewSection({ movieId }: ReviewSectionProps) {
     return (
         <section className="reviewSection">
             <h2 className="reviewTitle">리뷰</h2>
-            {!editingReviewId && !hasUserReviewed && <ReviewForm movieId={movieId} />}
+            {user ? (
+                !editingReviewId && !hasUserReviewed && <ReviewForm movieId={movieId} />
+            ) : (
+                <p className="reviewMessage reviewMessage--login">
+                    리뷰를 작성하려면&nbsp;
+                    <span className="highlight">로그인</span>
+                    &nbsp;이 필요합니다.
+                </p>
+            )}
             {hasUserReviewed && !editingReviewId && (
-                <p className="reviewMessage">이미 리뷰를 작성하셨습니다.</p>
+                <p className="reviewMessage reviewMessage--info">이미 리뷰를 작성하셨습니다.</p>
             )}
             {reviewsData && reviewsData.reviews.length > 0 ? (
                 <div className="reviewList">

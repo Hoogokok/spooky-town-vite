@@ -77,10 +77,26 @@
 }
 
 .reviewMessage {
-    color: var(--color-text-secondary);
     text-align: center;
     padding: var(--spacing-4);
     background-color: var(--color-background);
     border-radius: var(--radius-md);
     margin-bottom: var(--spacing-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reviewMessage--login {
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+}
+
+.reviewMessage--login .highlight {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-bold);
+}
+
+.reviewMessage--info {
+    color: var(--color-text-secondary);
 } 
