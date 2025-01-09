@@ -54,4 +54,24 @@
     color: var(--color-text-secondary);
     text-align: center;
     padding: var(--spacing-4);
+}
+
+.reviewActions {
+    display: flex;
+    gap: var(--spacing-2);
+    margin-left: auto;
+}
+
+.deleteButton {
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--color-error);
+    color: var(--color-text-on-primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    opacity: 0.9;
 } 

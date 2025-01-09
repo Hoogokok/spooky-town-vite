@@ -47,12 +47,20 @@ export default function ReviewSection({ movieId }: ReviewSectionProps) {
                                                 {new Date(review.createdAt).toLocaleDateString()}
                                             </span>
                                             {review.userId === user?.id && (
-                                                <button
-                                                    className="editButton"
-                                                    onClick={() => setEditingReviewId(review.id)}
-                                                >
-                                                    수정
-                                                </button>
+                                                <div className="reviewActions">
+                                                    <button
+                                                        className="editButton"
+                                                        onClick={() => setEditingReviewId(review.id)}
+                                                    >
+                                                        수정
+                                                    </button>
+                                                    <button
+                                                        className="deleteButton"
+                                                        onClick={() => {/* 삭제 로직은 다음 단계에서 구현 */ }}
+                                                    >
+                                                        삭제
+                                                    </button>
+                                                </div>
                                             )}
                                         </div>
                                         <p className="reviewContent">{review.content}</p>
