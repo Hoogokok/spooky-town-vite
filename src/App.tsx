@@ -12,6 +12,7 @@ import Profile from './pages/Profile'
 import ProfileEdit from './pages/Profile/Edit'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
 import PasswordChange from './pages/Profile/Password'
+import MovieDetail from './pages/MovieDetail'
 
 const queryClient = new QueryClient()
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/magazine" element={<Magazine />} />
             <Route path="/games" element={<Game />} />
             <Route path="/streaming" element={<StreamingPage />} />
+            <Route path="/movie/:id/:type" element={<MovieDetail />} />
             <Route
               path="/profile"
               element={
