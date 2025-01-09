@@ -2,27 +2,34 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Effect } from 'effect'
 import { reviewApi } from '../../../../api/endpoints/review'
-import { ReviewInput } from '../../../../types/api/review'
+import { Review, ReviewInput } from '../../../../types/api/review'
 import { reviewInputSchema } from '../../../../api/schemas/review'
 import './reviewForm.css'
 
 interface ReviewFormProps {
     movieId: string
+    initialReview?: Review
+    onCancel?: () => void
 }
 
-export default function ReviewForm({ movieId }: ReviewFormProps) {
-    const [rating, setRating] = useState(0)
-    const [content, setContent] = useState('')
+export default function ReviewForm({ movieId, initialReview, onCancel }: ReviewFormProps) {
+    const [rating, setRating] = useState(initialReview?.rating ?? 0)
+    const [content, setContent] = useState(initialReview?.content ?? '')
     const [validationError, setValidationError] = useState<string>('')
     const queryClient = useQueryClient()
 
     const { mutate: submitReview, error } = useMutation({
-        mutationFn: (input: ReviewInput) => Effect.runPromise(reviewApi.createReview(movieId, input)),
+        mutationFn: (input: ReviewInput) => Effect.runPromise(
+            initialReview
+                ? reviewApi.updateReview(initialReview.id, input)
+                : reviewApi.createReview(movieId, input)
+        ),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['reviews', movieId] })
             setRating(0)
             setContent('')
             setValidationError('')
+            onCancel?.()
         }
     })
 
@@ -66,9 +73,16 @@ export default function ReviewForm({ movieId }: ReviewFormProps) {
             {error && <p className="errorMessage">리뷰 작성에 실패했습니다</p>}
             <div className="formFooter">
                 <span className="charCount">{content.length}/500</span>
-                <button type="submit" className="submitButton" disabled={rating === 0}>
-                    리뷰 작성
-                </button>
+                <div className="buttonGroup">
+                    {onCancel && (
+                        <button type="button" className="cancelButton" onClick={onCancel}>
+                            취소
+                        </button>
+                    )}
+                    <button type="submit" className="submitButton" disabled={rating === 0}>
+                        {initialReview ? '수정하기' : '리뷰 작성'}
+                    </button>
+                </div>
             </div>
         </form>
     )

@@ -77,4 +77,29 @@
 .charCount {
     color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
+}
+
+.buttonGroup {
+    display: flex;
+    gap: var(--spacing-2);
+}
+
+.cancelButton {
+    padding: var(--spacing-2) var(--spacing-6);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.editButton {
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    margin-left: auto;
 } 
