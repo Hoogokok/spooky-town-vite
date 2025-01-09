@@ -4,10 +4,13 @@ import { navItems, authItems } from '../../config/navigation'
 import { useAuth } from '../../hooks/useAuth'
 import { useLogout } from '../../hooks/useLogout'
 import { useScroll } from '../../hooks/useScroll'
+import { useProfile } from '../../hooks/useProfile'
+import ProfileAvatar from '../common/ProfileAvatar'
 
 function TopNav() {
     const { isScrolled } = useScroll()
     const { isAuthenticated } = useAuth()
+    const { data: profile } = useProfile()
     const logout = useLogout()
 
     return (
@@ -25,19 +28,26 @@ function TopNav() {
                             </Link>
                         </li>
                     ))}
-                    <li>
-                        {isAuthenticated ? (
+                    {isAuthenticated ? (
+                        <div className="auth-menu">
+                            <Link to="/profile" className="menu-item">
+                                <ProfileAvatar
+                                    imageUrl={profile?.imageUrl}
+                                    size="sm"
+                                />
+                                <span>프로필</span>
+                            </Link>
                             <button onClick={() => logout.mutate()} className="menu-item">
                                 <img src={authItems.logout.icon} alt={authItems.logout.alt} className="icon" />
                                 <span>{authItems.logout.label}</span>
                             </button>
-                        ) : (
-                            <Link to={authItems.login.href} className="menu-item">
-                                <img src={authItems.login.icon} alt={authItems.login.alt} className="icon" />
-                                <span>{authItems.login.label}</span>
-                            </Link>
-                        )}
-                    </li>
+                        </div>
+                    ) : (
+                        <Link to={authItems.login.href} className="menu-item">
+                            <img src={authItems.login.icon} alt={authItems.login.alt} className="icon" />
+                            <span>{authItems.login.label}</span>
+                        </Link>
+                    )}
                 </ul>
             </div>
         </nav>
