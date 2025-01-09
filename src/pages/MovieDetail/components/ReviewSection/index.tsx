@@ -7,6 +7,7 @@ import ErrorComponent from '../../../../components/common/ErrorComponent'
 import ReviewForm from '../ReviewForm'
 import './reviewSection.css'
 import { useAuth } from '../../../../hooks/useAuth'
+import { Link } from 'react-router-dom'
 
 interface ReviewSectionProps {
     movieId: string
@@ -50,7 +51,7 @@ export default function ReviewSection({ movieId }: ReviewSectionProps) {
             ) : (
                 <p className="reviewMessage reviewMessage--login">
                     리뷰를 작성하려면&nbsp;
-                    <span className="highlight">로그인</span>
+                        <Link to="/login" className="highlight">로그인</Link>
                     &nbsp;이 필요합니다.
                 </p>
             )}

@@ -99,4 +99,14 @@
 
 .reviewMessage--info {
     color: var(--color-text-secondary);
+}
+
+.highlight {
+    color: var(--highlight-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.highlight:hover {
+    text-decoration: underline;
 } 
