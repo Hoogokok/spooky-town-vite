@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
 import './movieList.css'
-import { Movie } from '../../types/movie'
+import { StreamingMovie } from '../../types/api/movie'
 
 interface MovieListProps {
-    movies: Movie[]
+    movies: StreamingMovie[]
 }
 
 function MovieList({ movies }: MovieListProps) {
     // 8개씩 영화를 그룹화하는 함수로 변경
-    const movieRows = movies.reduce((acc: Movie[][], curr, i) => {
+    const movieRows = movies.reduce((acc: StreamingMovie[][], curr, i) => {
         if (i % 8 === 0) acc.push([]);
         acc[acc.length - 1].push(curr);
         return acc;

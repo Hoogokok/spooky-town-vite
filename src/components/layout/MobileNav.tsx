@@ -5,11 +5,14 @@ import { navItems, authItems } from '../../config/navigation';
 import { useScroll } from '../../hooks/useScroll';
 import { useAuth } from '../../hooks/useAuth';
 import { useLogout } from '../../hooks/useLogout';
+import { useProfile } from '../../hooks/useProfile';
+import ProfileAvatar from '../common/ProfileAvatar';
 
 function MobileNav() {
     const location = useLocation();
     const { isHidden } = useScroll();
     const { isAuthenticated } = useAuth();
+    const { data: profile } = useProfile();
     const logout = useLogout();
 
     const isActive = (path: string) => {
@@ -41,22 +44,22 @@ function MobileNav() {
                     </Link>
                 ))}
                 {isAuthenticated ? (
-                    <button
-                        onClick={() => logout.mutate()}
-                        className="navButton"
-                        role="menuitem"
-                    >
-                        <img src={authItems.logout.icon} alt="" className="mobileIcon" aria-hidden="true" />
-                        <span>{authItems.logout.label}</span>
-                    </button>
+                    <>
+                        <Link to="/profile" className="navButton">
+                            <ProfileAvatar
+                                imageUrl={profile?.imageUrl}
+                                size="sm"
+                            />
+                            <span>프로필</span>
+                        </Link>
+                        <button onClick={() => logout.mutate()} className="navButton">
+                            <img src={authItems.logout.icon} alt="" className="mobileIcon" />
+                            <span>{authItems.logout.label}</span>
+                        </button>
+                    </>
                 ) : (
-                        <Link
-                            to={authItems.login.href}
-                            className={isActive(authItems.login.href) ? 'active' : ''}
-                            aria-current={isActive(authItems.login.href) ? 'page' : undefined}
-                            role="menuitem"
-                        >
-                            <img src={authItems.login.icon} alt="" className="mobileIcon" aria-hidden="true" />
+                        <Link to={authItems.login.href} className="navButton">
+                            <img src={authItems.login.icon} alt="" className="mobileIcon" />
                             <span>{authItems.login.label}</span>
                         </Link>
                 )}

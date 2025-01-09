@@ -15,7 +15,7 @@ function Profile() {
     const navigate = useNavigate()
     const { data: profile, isLoading, error } = useQuery<ProfileData>({
         queryKey: ['profile'],
-        queryFn: () => Effect.runPromise(getProfile)
+        queryFn: getProfile
     })
 
     const handleEditClick = () => {

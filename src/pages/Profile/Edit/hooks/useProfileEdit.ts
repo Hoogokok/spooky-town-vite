@@ -36,7 +36,7 @@ export function useProfileEdit() {
 
     const { data: profile, isLoading, error: fetchError } = useQuery<ProfileData>({
         queryKey: ['profile'],
-        queryFn: () => Effect.runPromise(getProfile)
+        queryFn: getProfile
     })
 
     const { mutate: updateProfile, isPending: isSaving } = useMutation({

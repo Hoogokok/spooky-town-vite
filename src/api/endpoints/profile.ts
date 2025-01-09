@@ -2,8 +2,7 @@ import { Effect } from 'effect'
 import { ApiError, NetworkError } from '../../types/error'
 import { getSession } from '../auth'
 import { profileImageSchema, profileUpdateSchema, type ProfileUpdateInput } from '../schemas/profile'
-import { passwordChangeSchema, type PasswordChangeInput } from '../schemas/auth'
-import { hashPassword } from '../../utils/crypto'
+
 
 interface Profile {
     id: string;
@@ -46,11 +45,11 @@ const parseResponse = (response: Response) => Effect.tryPromise({
     catch: () => new ApiError('응답을 파싱하는데 실패했습니다')
 })
 
-export const getProfile = Effect.gen(function* (_) {
+export const getProfile = () => Effect.runPromise(Effect.gen(function* (_) {
     const response = yield* _(fetchFromApi)
     const profile = yield* _(parseResponse(response))
     return profile
-})
+}))
 
 export const updateProfile = (data: ProfileUpdateInput) => Effect.gen(function* (_) {
     const validation = profileUpdateSchema.safeParse(data)
