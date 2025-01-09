@@ -2,8 +2,10 @@ import { Article } from '../../types/article'
 import { Effect } from 'effect'
 import { ApiError, NetworkError } from '../../types/error'
 
+const magazineProxy = import.meta.env.VITE_MAGAZINE_PROXY
+
 const fetchFromApi = Effect.tryPromise({
-    try: () => fetch(`${import.meta.env.VITE_MAGAZINE_PROXY}/api/fangoria-articles`),
+    try: () => fetch(`${magazineProxy}/fangoria-articles`),
     catch: () => new NetworkError('네트워크 오류가 발생했습니다')
 })
 
