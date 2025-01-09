@@ -14,7 +14,6 @@ interface ReviewSectionProps {
 
 export default function ReviewSection({ movieId }: ReviewSectionProps) {
     const [editingReviewId, setEditingReviewId] = useState<string | null>(null)
-    const [deletingReviewId, setDeletingReviewId] = useState<string | null>(null)
     const queryClient = useQueryClient()
     const { data: reviewsData, isLoading, error } = useQuery({
         queryKey: ['reviews', movieId],
@@ -31,7 +30,6 @@ export default function ReviewSection({ movieId }: ReviewSectionProps) {
         mutationFn: (reviewId: string) => Effect.runPromise(reviewApi.deleteReview(reviewId)),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['reviews', movieId] })
-            setDeletingReviewId(null)
         }
     })
 

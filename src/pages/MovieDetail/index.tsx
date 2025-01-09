@@ -6,7 +6,9 @@ import Loading from '../../components/common/Loading'
 import ErrorComponent from '../../components/common/ErrorComponent'
 import { StreamingMovieDetail, TheaterMovieDetail } from '../../types/api/movie'
 import './movieDetail.css'
-import ReviewSection from './components/ReviewSection'
+import { lazy, Suspense } from 'react'
+
+const ReviewSection = lazy(() => import('./components/ReviewSection'))
 
 function MovieDetail() {
     const { id, type } = useParams<{ id: string; type: 'streaming' | 'upcoming' | 'released' }>()
@@ -34,7 +36,6 @@ function MovieDetail() {
             message="영화 정보를 불러오는데 실패했습니다"
         />
     }
-    console.log(movie)
     return (
         <div className="movieDetailContainer">
             <div className="movieHeader">
@@ -68,7 +69,9 @@ function MovieDetail() {
                     )}
                 </div>
             </div>
-            <ReviewSection movieId={movie.id.toString()} />
+            <Suspense fallback={<Loading />}>
+                <ReviewSection movieId={movie.id.toString()} />
+            </Suspense>
         </div>
     )
 }

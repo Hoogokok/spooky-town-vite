@@ -10,7 +10,7 @@ interface GameChannelProps {
     error?: unknown
 }
 
-function GameChannel({ channelId, name, channelName, videos, error }: GameChannelProps) {
+function GameChannel({ name, channelName, videos, error }: GameChannelProps) {
     const channelUrl = `https://www.youtube.com/@${name}`
 
     if (error) {

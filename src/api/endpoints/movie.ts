@@ -1,5 +1,5 @@
 import { Effect } from 'effect'
-import { TheaterMovie, MovieDetail, StreamingMovieDetail, TheaterMovieDetail } from '../../types/api/movie'
+import { TheaterMovie, StreamingMovieDetail, TheaterMovieDetail } from '../../types/api/movie'
 
 export class FetchError {
     readonly _tag = 'FetchError'
