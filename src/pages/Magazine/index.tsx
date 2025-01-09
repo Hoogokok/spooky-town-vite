@@ -10,7 +10,8 @@ import { ApiError, NetworkError } from '../../types/error'
 function Magazine() {
     const { data: result, isLoading, refetch } = useQuery({
         queryKey: ['articles'],
-        queryFn: () => Effect.runPromise(fetchArticles)
+        queryFn: () => Effect.runPromise(fetchArticles),
+        staleTime: 1000 * 60 * 60 * 12 // 12 hours
     })
 
     if (isLoading) return <Loading />
