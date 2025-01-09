@@ -15,4 +15,23 @@ export interface TheaterMovie {
 export interface MovieSearchResponse {
     movies: StreamingMovie[]
     totalPages: number
+}
+
+// 기본 영화 상세 정보 타입
+export interface MovieDetail {
+    id: number
+    title: string
+    posterPath: string
+    overview: string
+}
+
+// 스트리밍 영화 상세 정보 타입
+export interface StreamingMovieDetail extends MovieDetail {
+    streamingProviders: string[]
+}
+
+// 극장 영화 상세 정보 타입
+export interface TheaterMovieDetail extends MovieDetail {
+    releaseDate: string
+    status: 'upcoming' | 'released'
 } 
