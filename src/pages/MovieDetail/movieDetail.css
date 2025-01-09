@@ -1,0 +1,122 @@
+ /* 페이지 컨테이너 */
+.movieDetailContainer {
+    padding: var(--spacing-4);
+    max-width: var(--breakpoint-desktop);
+    margin: 0 auto;
+}
+
+/* 상단 영역 - 포스터와 기본 정보 */
+.movieHeader {
+    display: flex;
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-8);
+}
+
+/* 포스터 영역 */
+.posterContainer {
+    flex-shrink: 0;
+    width: var(--content-poster-lg);
+}
+
+.posterImage {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/3;
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+}
+
+/* 기본 정보 영역 */
+.movieInfo {
+    flex: 1;
+}
+
+.movieTitle {
+    font-family: var(--font-family-korean);
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-4);
+}
+
+.releaseDate {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-4);
+}
+
+/* 줄거리 영역 */
+.overview {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-normal);
+    margin-bottom: var(--spacing-6);
+}
+
+/* 스트리밍 서비스 영역 */
+.streamingServices {
+    margin-top: var(--spacing-6);
+}
+
+.streamingTitle {
+    font-family: var(--font-family-korean);
+    font-size: var(--font-size-xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-4);
+}
+
+.providerList {
+    display: flex;
+    gap: var(--spacing-4);
+    flex-wrap: wrap;
+}
+
+.provider {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-base);
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .movieHeader {
+        flex-direction: column;
+    }
+
+    .posterContainer {
+        width: 100%;
+        max-width: var(--content-poster-md);
+        margin: 0 auto;
+    }
+
+    .movieTitle {
+        font-size: var(--font-size-xl);
+        text-align: center;
+    }
+
+    .releaseDate {
+        text-align: center;
+    }
+}
+
+/* 로딩 상태 스켈레톤 */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--color-surface) 25%,
+        var(--color-surface-hover) 50%,
+        var(--color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+} 
