@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Effect } from 'effect'
 import { reviewApi } from '../../../../api/endpoints/review'
 import { ReviewInput } from '../../../../types/api/review'
+import { reviewInputSchema } from '../../../../api/schemas/review'
 import './reviewForm.css'
 
 interface ReviewFormProps {
@@ -12,6 +13,7 @@ interface ReviewFormProps {
 export default function ReviewForm({ movieId }: ReviewFormProps) {
     const [rating, setRating] = useState(0)
     const [content, setContent] = useState('')
+    const [validationError, setValidationError] = useState<string>('')
     const queryClient = useQueryClient()
 
     const { mutate: submitReview, error } = useMutation({
@@ -20,13 +22,21 @@ export default function ReviewForm({ movieId }: ReviewFormProps) {
             queryClient.invalidateQueries({ queryKey: ['reviews', movieId] })
             setRating(0)
             setContent('')
+            setValidationError('')
         }
     })
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        if (rating === 0) return
-        submitReview({ rating, content })
+        setValidationError('')
+
+        const result = reviewInputSchema.safeParse({ rating, content })
+        if (!result.success) {
+            setValidationError(result.error.errors[0].message)
+            return
+        }
+
+        submitReview(result.data)
     }
 
     return (
@@ -48,14 +58,18 @@ export default function ReviewForm({ movieId }: ReviewFormProps) {
             </div>
             <textarea
                 className="reviewContent"
-                placeholder="리뷰를 작성해주세요"
+                placeholder="리뷰를 작성해주세요 (최소 10자, 최대 500자)"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
             />
+            {validationError && <p className="errorMessage">{validationError}</p>}
             {error && <p className="errorMessage">리뷰 작성에 실패했습니다</p>}
-            <button type="submit" className="submitButton" disabled={rating === 0}>
-                리뷰 작성
-            </button>
+            <div className="formFooter">
+                <span className="charCount">{content.length}/500</span>
+                <button type="submit" className="submitButton" disabled={rating === 0}>
+                    리뷰 작성
+                </button>
+            </div>
         </form>
     )
 } 

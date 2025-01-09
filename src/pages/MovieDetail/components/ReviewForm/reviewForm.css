@@ -48,8 +48,7 @@
 }
 
 .submitButton {
-    width: 100%;
-    padding: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-6);
     background-color: var(--color-primary);
     color: var(--color-text-on-primary);
     border: none;
@@ -65,5 +64,17 @@
 .errorMessage {
     color: var(--color-error);
     margin-bottom: var(--spacing-2);
+    font-size: var(--font-size-sm);
+}
+
+.formFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-2);
+}
+
+.charCount {
+    color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
 } 
