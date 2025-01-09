@@ -23,7 +23,7 @@ const fetchFromApi = (endpoint: string) => Effect.tryPromise({
     catch: () => new NetworkError('네트워크 오류가 발생했습니다')
 })
 
-const parseResponse = <T>(response: Response, endpoint: string) => Effect.tryPromise({
+const parseResponse = <T>(response: Response) => Effect.tryPromise({
     try: async () => {
         const data = await response.json()
 
@@ -35,13 +35,11 @@ const parseResponse = <T>(response: Response, endpoint: string) => Effect.tryPro
             })) as T
         }
 
-        // 단일 영화 정보 변환
-        const movieData = {
+        // 단일 영화 정보도 포스터 URL 처리
+        return {
             ...data,
-            watchProviders: data.providers
-        }
-
-        return movieData as T
+            posterPath: import.meta.env.VITE_POSTER_URL + data.posterPath
+        } as T
     },
     catch: () => new FetchError('응답을 파싱하는데 실패했습니다')
 })
@@ -56,7 +54,7 @@ const fetchMovies = (endpoint: string): Effect.Effect<TheaterMovie[], FetchError
             ))
         }
 
-        const movies = yield* _(parseResponse<TheaterMovie[]>(response, endpoint))
+        const movies = yield* _(parseResponse<TheaterMovie[]>(response))
         return movies
     })
 
@@ -72,7 +70,7 @@ const fetchStreamingMovieDetail = (id: string) =>
             ))
         }
 
-        const movie = yield* _(parseResponse<StreamingMovieDetail>(response, endpoint))
+        const movie = yield* _(parseResponse<StreamingMovieDetail>(response))
         return movie
     })
 
@@ -88,7 +86,7 @@ const fetchTheaterMovieDetail = (id: string) =>
             ))
         }
 
-        const movie = yield* _(parseResponse<TheaterMovieDetail>(response, endpoint))
+        const movie = yield* _(parseResponse<TheaterMovieDetail>(response))
         return movie
     })
 
