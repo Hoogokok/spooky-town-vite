@@ -37,7 +37,7 @@ function Magazine() {
                 role="feed"
                 aria-labelledby="magazine-title"
             >
-                {result.map((article, index) => (
+                {result.map((article) => (
                     <ArticleCard
                         key={article.url}
                         article={article}
