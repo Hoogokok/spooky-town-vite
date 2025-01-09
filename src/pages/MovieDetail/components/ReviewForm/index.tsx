@@ -13,7 +13,7 @@ interface ReviewFormProps {
 }
 
 export default function ReviewForm({ movieId, initialReview, onCancel }: ReviewFormProps) {
-    const [rating, setRating] = useState(initialReview?.rating ?? 0)
+    const [rating, setRating] = useState(initialReview ? Number(initialReview.rating) : 0)
     const [content, setContent] = useState(initialReview?.content ?? '')
     const [validationError, setValidationError] = useState<string>('')
     const queryClient = useQueryClient()
