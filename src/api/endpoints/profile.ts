@@ -2,6 +2,8 @@ import { Effect } from 'effect'
 import { ApiError, NetworkError } from '../../types/error'
 import { getSession } from '../auth'
 import { profileImageSchema, profileUpdateSchema, type ProfileUpdateInput } from '../schemas/profile'
+import { passwordChangeSchema, type PasswordChangeInput } from '../schemas/auth'
+import { hashPassword } from '../../utils/crypto'
 
 interface Profile {
     id: string;

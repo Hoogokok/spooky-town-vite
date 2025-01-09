@@ -80,6 +80,10 @@ export function useProfileEdit() {
         navigate('/profile')
     }
 
+    const handlePasswordChange = () => {
+        navigate('/profile/password')
+    }
+
     return {
         profile,
         isLoading,
@@ -93,5 +97,6 @@ export function useProfileEdit() {
         isSaving,
         fetchError,
         successMessage,
+        handlePasswordChange,
     }
 } 

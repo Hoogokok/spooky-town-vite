@@ -11,6 +11,7 @@ import StreamingPage from './pages/Streaming'
 import Profile from './pages/Profile'
 import ProfileEdit from './pages/Profile/Edit'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
+import PasswordChange from './pages/Profile/Password'
 
 const queryClient = new QueryClient()
 
@@ -39,6 +40,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ProfileEdit />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile/password"
+              element={
+                <ProtectedRoute>
+                  <PasswordChange />
                 </ProtectedRoute>
               }
             />

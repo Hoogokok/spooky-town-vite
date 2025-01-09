@@ -19,6 +19,7 @@ function ProfileEdit() {
         isSaving,
         fetchError,
         successMessage,
+        handlePasswordChange,
     } = useProfileEdit()
 
     if (isLoading) {
@@ -46,6 +47,7 @@ function ProfileEdit() {
                     defaultName={profile?.name}
                     onSubmit={handleProfileUpdate}
                     onCancel={handleCancel}
+                    onChangePassword={handlePasswordChange}
                     isSaving={isSaving}
                 />
             </section>

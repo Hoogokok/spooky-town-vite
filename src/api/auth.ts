@@ -121,4 +121,22 @@ export async function signupUser({ email, password, name, passwordConfirm: _ }: 
         error: null,
         validationError: undefined
     }
+}
+
+export const updatePassword = async (password: string) => {
+    const { error } = await supabase.auth.updateUser({
+        password: password
+    })
+
+    if (error) {
+        return {
+            data: null,
+            error: error.message
+        }
+    }
+
+    return {
+        data: { success: true },
+        error: null
+    }
 } 
