@@ -24,7 +24,20 @@ const fetchFromApi = (endpoint: string) => Effect.tryPromise({
 })
 
 const parseResponse = <T>(response: Response) => Effect.tryPromise({
-    try: () => response.json() as Promise<T>,
+    try: async () => {
+        const data = await response.json()
+        // 응답 데이터의 posterPath에 기본 URL 추가
+        if (Array.isArray(data)) {
+            return data.map(item => ({
+                ...item,
+                posterPath: import.meta.env.VITE_POSTER_URL + item.posterPath
+            })) as T
+        }
+        return {
+            ...data,
+            posterPath: import.meta.env.VITE_POSTER_URL + data.posterPath
+        } as T
+    },
     catch: () => new FetchError('응답을 파싱하는데 실패했습니다')
 })
 

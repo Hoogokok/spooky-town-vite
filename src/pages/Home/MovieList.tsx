@@ -15,7 +15,7 @@ export default function MovieList({ movies, type }: MovieListProps) {
                     <Link to={`/movie/${movie.id}/${type}`} className="movieLink">
                         <img
                             alt={movie.title}
-                            src={import.meta.env.VITE_POSTER_URL + movie.posterPath}
+                            src={movie.posterPath}
                             className="movieImage"
                             loading={type === "upcoming" ? "eager" : "lazy"}
                         />
