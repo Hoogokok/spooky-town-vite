@@ -41,7 +41,7 @@ jobs:
           username: bitnami
           key: ${{ secrets.LIGHTSAIL_SSH_PRIVATE_KEY }}
           source: "."
-          target: "/home/bitnami/spooky-town"
+          target: "/home/bitnami/spooky-town-frontend"
           
       - name: Execute deployment commands
         uses: appleboy/ssh-action@master
@@ -50,13 +50,9 @@ jobs:
           username: bitnami
           key: ${{ secrets.LIGHTSAIL_SSH_PRIVATE_KEY }}
           script: |
-            cd /home/bitnami/spooky-town
+            cd /home/bitnami/spooky-town-frontend
             pnpm install
-            # 기존 프로세스 정리
-            pm2 delete all || true
-            # 백엔드 먼저 시작
-            pm2 start npm --name "spooky-town-api" -- run start
-            # 프론트엔드 시작
+            pm2 delete spooky-town || true
             pm2 start npm --name "spooky-town" -- run preview
             pm2 save
             sudo systemctl restart nginx
