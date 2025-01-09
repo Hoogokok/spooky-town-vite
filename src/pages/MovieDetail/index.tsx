@@ -6,7 +6,7 @@ import Loading from '../../components/common/Loading'
 import ErrorComponent from '../../components/common/ErrorComponent'
 import { StreamingMovieDetail, TheaterMovieDetail } from '../../types/api/movie'
 import './movieDetail.css'
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 
 const ReviewSection = lazy(() => import('./components/ReviewSection'))
 
@@ -69,7 +69,9 @@ function MovieDetail() {
                     )}
                 </div>
             </div>
-            <ReviewSection movieId={movie.id.toString()} />
+            <Suspense fallback={<Loading />}>
+                <ReviewSection movieId={movie.id.toString()} />
+            </Suspense>
         </div>
     )
 }

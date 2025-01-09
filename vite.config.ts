@@ -8,6 +8,11 @@ export default defineConfig({
     assetsInlineLimit: 4096,
     rollupOptions: {
       output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-query': ['@tanstack/react-query'],
+          'vendor-effect': ['effect']
+        },
         assetFileNames: 'assets/[hash][extname]',
         chunkFileNames: 'js/[hash].js',
         entryFileNames: 'js/[hash].js'
