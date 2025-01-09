@@ -1,0 +1,105 @@
+.reviewForm {
+    margin-top: var(--spacing-4);
+    padding: var(--spacing-4);
+    background-color: var(--color-background);
+    border-radius: var(--radius-md);
+}
+
+.ratingContainer {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-4);
+}
+
+.ratingLabel {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-bold);
+}
+
+.starRating {
+    display: flex;
+    gap: var(--spacing-1);
+}
+
+.star {
+    background: none;
+    border: none;
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    padding: 0;
+}
+
+.star.active {
+    color: var(--color-primary);
+}
+
+.reviewContent {
+    width: 100%;
+    min-height: 100px;
+    padding: var(--spacing-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    resize: vertical;
+    margin-bottom: var(--spacing-4);
+}
+
+.submitButton {
+    padding: var(--spacing-2) var(--spacing-6);
+    background-color: var(--color-primary);
+    color: var(--color-text-on-primary);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.submitButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.errorMessage {
+    color: var(--color-error);
+    margin-bottom: var(--spacing-2);
+    font-size: var(--font-size-sm);
+}
+
+.formFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-2);
+}
+
+.charCount {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.buttonGroup {
+    display: flex;
+    gap: var(--spacing-2);
+}
+
+.cancelButton {
+    padding: var(--spacing-2) var(--spacing-6);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.editButton {
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    margin-left: auto;
+} 

@@ -6,6 +6,7 @@ import Loading from '../../components/common/Loading'
 import ErrorComponent from '../../components/common/ErrorComponent'
 import { StreamingMovieDetail, TheaterMovieDetail } from '../../types/api/movie'
 import './movieDetail.css'
+import ReviewSection from './components/ReviewSection'
 
 function MovieDetail() {
     const { id, type } = useParams<{ id: string; type: 'streaming' | 'upcoming' | 'released' }>()
@@ -67,6 +68,7 @@ function MovieDetail() {
                     )}
                 </div>
             </div>
+            <ReviewSection movieId={movie.id.toString()} />
         </div>
     )
 }
