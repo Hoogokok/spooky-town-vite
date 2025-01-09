@@ -3,7 +3,7 @@ import { Review, ReviewInput, ReviewsResponse, ReviewError } from '../../types/a
 import { FetchError, NetworkError } from './movie'
 
 const BASE_URL = import.meta.env.VITE_API_URL
-
+const API_KEY = import.meta.env.VITE_API_KEY
 const fetchFromApi = (endpoint: string, options?: RequestInit) => Effect.tryPromise({
     try: () => {
         const token = localStorage.getItem('token')
@@ -11,6 +11,7 @@ const fetchFromApi = (endpoint: string, options?: RequestInit) => Effect.tryProm
             ...options,
             headers: {
                 ...options?.headers,
+                'X-API-Key': API_KEY,
                 'Content-Type': 'application/json',
                 ...(token && { 'Authorization': `Bearer ${token}` })
             }
@@ -27,7 +28,7 @@ const parseResponse = <T>(response: Response) => Effect.tryPromise({
 // 리뷰 목록 조회
 const fetchReviews = (movieId: string, page = 1): Effect.Effect<ReviewsResponse, FetchError | NetworkError, never> =>
     Effect.gen(function* (_) {
-        const response = yield* _(fetchFromApi(`/reviews/${movieId}?page=${page}`))
+        const response = yield* _(fetchFromApi(`/reviews/movie/${movieId}?page=${page}`))
 
         if (!response.ok) {
             return yield* _(Effect.fail(new FetchError('리뷰를 불러오는데 실패했습니다')))
@@ -47,7 +48,7 @@ const createReview = (movieId: string, input: ReviewInput): Effect.Effect<Review
             }))
         }
 
-        const response = yield* _(fetchFromApi(`/reviews/${movieId}`, {
+        const response = yield* _(fetchFromApi(`/reviews/movie/${movieId}`, {
             method: 'POST',
             body: JSON.stringify(input)
         }))
@@ -63,7 +64,7 @@ const createReview = (movieId: string, input: ReviewInput): Effect.Effect<Review
 // 리뷰 수정
 const updateReview = (reviewId: string, input: ReviewInput): Effect.Effect<Review, FetchError | NetworkError | ReviewError, never> =>
     Effect.gen(function* (_) {
-        const response = yield* _(fetchFromApi(`/reviews/${reviewId}`, {
+        const response = yield* _(fetchFromApi(`/reviews/movie/${reviewId}`, {
             method: 'PUT',
             body: JSON.stringify(input)
         }))
@@ -79,7 +80,7 @@ const updateReview = (reviewId: string, input: ReviewInput): Effect.Effect<Revie
 // 리뷰 삭제
 const deleteReview = (reviewId: string): Effect.Effect<void, FetchError | NetworkError | ReviewError, never> =>
     Effect.gen(function* (_) {
-        const response = yield* _(fetchFromApi(`/reviews/${reviewId}`, {
+        const response = yield* _(fetchFromApi(`/reviews/movie/${reviewId}`, {
             method: 'DELETE'
         }))
 
