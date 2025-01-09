@@ -74,4 +74,13 @@
 
 .deleteButton:hover {
     opacity: 0.9;
+}
+
+.reviewMessage {
+    color: var(--color-text-secondary);
+    text-align: center;
+    padding: var(--spacing-4);
+    background-color: var(--color-background);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-4);
 } 

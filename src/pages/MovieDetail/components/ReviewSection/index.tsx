@@ -23,6 +23,10 @@ export default function ReviewSection({ movieId }: ReviewSectionProps) {
 
     const { user } = useAuth()
 
+    const hasUserReviewed = reviewsData?.reviews.some(
+        review => review.userId === user?.id
+    )
+
     const { mutate: deleteReview } = useMutation({
         mutationFn: (reviewId: string) => Effect.runPromise(reviewApi.deleteReview(reviewId)),
         onSuccess: () => {
@@ -43,7 +47,10 @@ export default function ReviewSection({ movieId }: ReviewSectionProps) {
     return (
         <section className="reviewSection">
             <h2 className="reviewTitle">리뷰</h2>
-            {!editingReviewId && <ReviewForm movieId={movieId} />}
+            {!editingReviewId && !hasUserReviewed && <ReviewForm movieId={movieId} />}
+            {hasUserReviewed && !editingReviewId && (
+                <p className="reviewMessage">이미 리뷰를 작성하셨습니다.</p>
+            )}
             {reviewsData && reviewsData.reviews.length > 0 ? (
                 <div className="reviewList">
                     {reviewsData.reviews.map((review) => (
