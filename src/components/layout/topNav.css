@@ -111,4 +111,70 @@
     .topNav {
         display: none;
     }
+}
+
+.navButton {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-md);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.navButton:hover {
+    color: var(--color-text-primary);
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-md);
+    background: none;
+    border: none;
+    padding: var(--spacing-2);
+    cursor: pointer;
+}
+
+.menu-link:hover {
+    color: var(--color-text-primary);
+}
+
+/* 스크롤 시에도 동일한 패딩 유지 */
+.navContent.scrolled .menu li .menu-link {
+    padding: var(--spacing-2);
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-md);
+    padding: var(--spacing-2);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    color: var(--color-text-primary);
+}
+
+/* 스크롤 시에도 동일한 패딩 유지 */
+.navContent.scrolled .menu li .menu-item {
+    padding: var(--spacing-2);
+}
+
+/* 불필요한 스타일 제거 */
+.navButton, .menu-link {
+    display: none;
 } 
