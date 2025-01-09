@@ -2,7 +2,7 @@ import { Article } from '../../types/article'
 import { Effect } from 'effect'
 import { ApiError, NetworkError } from '../../types/error'
 
-const magazineProxy = import.meta.env.VITE_MAGAZINE_PROXY
+const magazineProxy = import.meta.env.VITE_MAGAZINE_PROXY || 'https://spooky-mag-proxy-server.deno.dev'
 
 const fetchFromApi = Effect.tryPromise({
     try: () => fetch(`${magazineProxy}/fangoria-articles`),
