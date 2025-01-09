@@ -1,12 +1,16 @@
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './mobileNav.css';
-import { navItems, loginItem } from '../../config/navigation';
+import { navItems, authItems } from '../../config/navigation';
 import { useScroll } from '../../hooks/useScroll';
+import { useAuth } from '../../hooks/useAuth';
+import { useLogout } from '../../hooks/useLogout';
 
 function MobileNav() {
     const location = useLocation();
     const { isHidden } = useScroll();
+    const { isAuthenticated } = useAuth();
+    const logout = useLogout();
 
     const isActive = (path: string) => {
         return location.pathname === path;
@@ -36,15 +40,26 @@ function MobileNav() {
                         <span>{item.label}</span>
                     </Link>
                 ))}
-                <Link
-                    to={loginItem.href}
-                    className={isActive(loginItem.href) ? 'active' : ''}
-                    aria-current={isActive(loginItem.href) ? 'page' : undefined}
-                    role="menuitem"
-                >
-                    <img src={loginItem.icon} alt="" className="mobileIcon" aria-hidden="true" />
-                    <span>{loginItem.label}</span>
-                </Link>
+                {isAuthenticated ? (
+                    <button
+                        onClick={() => logout.mutate()}
+                        className="navButton"
+                        role="menuitem"
+                    >
+                        <img src={authItems.logout.icon} alt="" className="mobileIcon" aria-hidden="true" />
+                        <span>{authItems.logout.label}</span>
+                    </button>
+                ) : (
+                        <Link
+                            to={authItems.login.href}
+                            className={isActive(authItems.login.href) ? 'active' : ''}
+                            aria-current={isActive(authItems.login.href) ? 'page' : undefined}
+                            role="menuitem"
+                        >
+                            <img src={authItems.login.icon} alt="" className="mobileIcon" aria-hidden="true" />
+                            <span>{authItems.login.label}</span>
+                        </Link>
+                )}
             </nav>
         </>
     );
