@@ -23,20 +23,25 @@ const fetchFromApi = (endpoint: string) => Effect.tryPromise({
     catch: () => new NetworkError('네트워크 오류가 발생했습니다')
 })
 
-const parseResponse = <T>(response: Response) => Effect.tryPromise({
+const parseResponse = <T>(response: Response, endpoint: string) => Effect.tryPromise({
     try: async () => {
         const data = await response.json()
-        // 응답 데이터의 posterPath에 기본 URL 추가
+
+        // 배열 데이터 처리
         if (Array.isArray(data)) {
             return data.map(item => ({
                 ...item,
                 posterPath: import.meta.env.VITE_POSTER_URL + item.posterPath
             })) as T
         }
-        return {
+
+        // 단일 영화 정보 변환
+        const movieData = {
             ...data,
-            posterPath: import.meta.env.VITE_POSTER_URL + data.posterPath
-        } as T
+            watchProviders: data.providers
+        }
+
+        return movieData as T
     },
     catch: () => new FetchError('응답을 파싱하는데 실패했습니다')
 })
@@ -51,14 +56,15 @@ const fetchMovies = (endpoint: string): Effect.Effect<TheaterMovie[], FetchError
             ))
         }
 
-        const movies = yield* _(parseResponse<TheaterMovie[]>(response))
+        const movies = yield* _(parseResponse<TheaterMovie[]>(response, endpoint))
         return movies
     })
 
 // 스트리밍 영화 상세 정보 조회
-const fetchStreamingMovieDetail = (id: string): Effect.Effect<StreamingMovieDetail, FetchError | NetworkError, never> =>
+const fetchStreamingMovieDetail = (id: string) =>
     Effect.gen(function* (_) {
-        const response = yield* _(fetchFromApi(`/movies/streaming/${id}`))
+        const endpoint = `/movies/streaming/${id}`
+        const response = yield* _(fetchFromApi(endpoint))
 
         if (!response.ok) {
             return yield* _(Effect.fail<FetchError | NetworkError>(
@@ -66,14 +72,15 @@ const fetchStreamingMovieDetail = (id: string): Effect.Effect<StreamingMovieDeta
             ))
         }
 
-        const movie = yield* _(parseResponse<StreamingMovieDetail>(response))
+        const movie = yield* _(parseResponse<StreamingMovieDetail>(response, endpoint))
         return movie
     })
 
 // 극장 영화 상세 정보 조회
-const fetchTheaterMovieDetail = (id: string): Effect.Effect<TheaterMovieDetail, FetchError | NetworkError, never> =>
+const fetchTheaterMovieDetail = (id: string) =>
     Effect.gen(function* (_) {
-        const response = yield* _(fetchFromApi(`/movies/theater/${id}`))
+        const endpoint = `/movies/theater/${id}`
+        const response = yield* _(fetchFromApi(endpoint))
 
         if (!response.ok) {
             return yield* _(Effect.fail<FetchError | NetworkError>(
@@ -81,7 +88,7 @@ const fetchTheaterMovieDetail = (id: string): Effect.Effect<TheaterMovieDetail, 
             ))
         }
 
-        const movie = yield* _(parseResponse<TheaterMovieDetail>(response))
+        const movie = yield* _(parseResponse<TheaterMovieDetail>(response, endpoint))
         return movie
     })
 
