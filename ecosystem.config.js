@@ -1,8 +1,8 @@
 module.exports = {
     apps: [{
         name: 'spooky-town',
-        script: 'node_modules/vite/bin/vite.js',
-        args: 'preview --port 5173 --host',
+        script: 'npm',
+        args: 'run preview',
         env: {
             NODE_ENV: 'production',
             VITE_API_URL: process.env.VITE_API_URL,

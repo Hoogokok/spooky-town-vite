@@ -52,9 +52,11 @@ jobs:
           script: |
             cd /home/bitnami/spooky-town
             pnpm install
-            # dist 폴더 존재 확인
-            ls -la dist
-            pm2 delete spooky-town || true
+            # 기존 프로세스 정리
+            pm2 delete all || true
+            # 백엔드 먼저 시작
+            pm2 start npm --name "spooky-town-api" -- run start
+            # 프론트엔드 시작
             pm2 start npm --name "spooky-town" -- run preview
             pm2 save
             sudo systemctl restart nginx
