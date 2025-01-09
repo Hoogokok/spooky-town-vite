@@ -55,5 +55,4 @@ jobs:
             pm2 delete spooky-town || true
             pm2 start npm --name "spooky-town" -- run preview
             pm2 save
-            sudo /opt/bitnami/ctlscript.sh stop nginx
-            sudo /opt/bitnami/ctlscript.sh start nginx
+            sudo systemctl restart nginx
