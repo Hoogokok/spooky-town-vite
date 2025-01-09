@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import { getProfile } from '../../api/endpoints/profile'
-import { Effect } from 'effect'
 import Loading from '../../components/common/Loading'
 import { useNavigate } from 'react-router-dom'
 import './profile.css'
