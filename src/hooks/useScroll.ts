@@ -2,42 +2,27 @@ import { useState, useEffect } from 'react';
 
 interface ScrollState {
     isHidden: boolean;
-    lastScrollY: number;
+    isScrolled: boolean;
 }
 
-export function useScroll(): ScrollState {
+export function useScroll(threshold = 50): ScrollState {
     const [isHidden, setIsHidden] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
-            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
-            if (currentScrollY >= maxScroll - 10 || currentScrollY <= 0) {
-                setIsHidden(false);
-            } else if (currentScrollY > lastScrollY) {
-                setIsHidden(true);
-            } else {
-                setIsHidden(false);
-            }
-
+            setIsHidden(currentScrollY > lastScrollY && currentScrollY > threshold);
             setLastScrollY(currentScrollY);
+
+            setIsScrolled(currentScrollY > 0);
         };
 
-        let timeoutId: ReturnType<typeof setTimeout> | null = null;
-        const throttledScroll = () => {
-            if (timeoutId) return;
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [lastScrollY, threshold]);
 
-            timeoutId = setTimeout(() => {
-                handleScroll();
-                timeoutId = null;
-            }, 100);
-        };
-
-        window.addEventListener('scroll', throttledScroll);
-        return () => window.removeEventListener('scroll', throttledScroll);
-    }, [lastScrollY]);
-
-    return { isHidden, lastScrollY };
+    return { isHidden, isScrolled };
 } 

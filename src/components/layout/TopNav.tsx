@@ -1,24 +1,14 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './topNav.css'
 import { navItems, authItems } from '../../config/navigation'
 import { useAuth } from '../../hooks/useAuth'
 import { useLogout } from '../../hooks/useLogout'
+import { useScroll } from '../../hooks/useScroll'
 
 function TopNav() {
-    const [isScrolled, setIsScrolled] = useState(false)
+    const { isScrolled } = useScroll()
     const { isAuthenticated } = useAuth()
     const logout = useLogout()
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY
-            setIsScrolled(scrollPosition > 0)
-        }
-
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
 
     return (
         <nav className={`topNav ${isScrolled ? 'scrolled' : ''}`}>
