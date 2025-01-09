@@ -12,14 +12,16 @@ export default function MovieList({ movies, type }: MovieListProps) {
         <div className="movieContent">
             {movies.map((movie: TheaterMovie) => (
                 <div key={movie.id} className="movieItem">
-                    <img
-                        alt={movie.title}
-                        src={import.meta.env.VITE_POSTER_URL + movie.posterPath}
-                        className="movieImage"
-                        loading={type === "upcoming" ? "eager" : "lazy"}
-                    />
-                    <Link to={`/movie/${movie.id}/${type}`} className="movieTitle">
-                        {movie.title}
+                    <Link to={`/movie/${movie.id}/${type}`} className="movieLink">
+                        <img
+                            alt={movie.title}
+                            src={import.meta.env.VITE_POSTER_URL + movie.posterPath}
+                            className="movieImage"
+                            loading={type === "upcoming" ? "eager" : "lazy"}
+                        />
+                        <span className="movieTitle">
+                            {movie.title}
+                        </span>
                     </Link>
                 </div>
             ))}
