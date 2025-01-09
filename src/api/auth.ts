@@ -139,4 +139,18 @@ export const updatePassword = async (password: string) => {
         data: { success: true },
         error: null
     }
+}
+
+export async function logoutUser() {
+    const { error } = await supabase.auth.signOut()
+
+    if (error) {
+        return {
+            error: error.message || '로그아웃에 실패했습니다'
+        }
+    }
+
+    return {
+        error: null
+    }
 } 

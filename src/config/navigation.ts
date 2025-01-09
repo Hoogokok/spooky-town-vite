@@ -1,4 +1,3 @@
-
 export const navItems = [
     {
         href: '/',
@@ -33,11 +32,18 @@ export const navItems = [
     }
 ]
 
-export const loginItem = {
-    href: '/login',
-    icon: '/icons/login.svg',
-    label: '로그인',
-    alt: '로그인 아이콘'
+export const authItems = {
+    login: {
+        href: '/login',
+        icon: '/icons/login.svg',
+        label: '로그인',
+        alt: '로그인 아이콘'
+    },
+    logout: {
+        icon: '/icons/logout.svg',
+        label: '로그아웃',
+        alt: '로그아웃 아이콘'
+    }
 }
 
 export const profileItem = {
