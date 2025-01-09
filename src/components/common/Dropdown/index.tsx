@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useDropdown } from '../../../hooks/useDropdown'
 import './dropdown.css'
 
 interface DropdownProps {
@@ -8,23 +8,11 @@ interface DropdownProps {
 }
 
 export default function Dropdown({ trigger, children, align = 'right' }: DropdownProps) {
-    const [isOpen, setIsOpen] = useState(false)
-    const dropdownRef = useRef<HTMLDivElement>(null)
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsOpen(false)
-            }
-        }
-
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => document.removeEventListener('mousedown', handleClickOutside)
-    }, [])
+    const { isOpen, dropdownRef, toggle } = useDropdown()
 
     return (
         <div className="dropdown-container" ref={dropdownRef}>
-            <div onClick={() => setIsOpen(!isOpen)}>
+            <div onClick={toggle}>
                 {trigger}
             </div>
             {isOpen && (
