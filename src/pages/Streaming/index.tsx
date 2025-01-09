@@ -64,9 +64,7 @@ function StreamingPage() {
                             <MovieList
                                 movies={data.movies.map(movie => ({
                                     ...movie,
-                                posterPath: import.meta.env.VITE_DEV
-                                    ? import.meta.env.VITE_POSTER_URL + movie.posterPath
-                                    : movie.posterPath
+                                    posterPath: import.meta.env.VITE_POSTER_URL + movie.posterPath
                             }))}
                             />
                         )
