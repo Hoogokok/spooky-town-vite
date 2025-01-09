@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Effect } from 'effect'
 import { reviewApi } from '../../../../api/endpoints/review'
 import Loading from '../../../../components/common/Loading'
@@ -14,12 +14,28 @@ interface ReviewSectionProps {
 
 export default function ReviewSection({ movieId }: ReviewSectionProps) {
     const [editingReviewId, setEditingReviewId] = useState<string | null>(null)
+    const [deletingReviewId, setDeletingReviewId] = useState<string | null>(null)
+    const queryClient = useQueryClient()
     const { data: reviewsData, isLoading, error } = useQuery({
         queryKey: ['reviews', movieId],
         queryFn: () => Effect.runPromise(reviewApi.fetchReviews(movieId))
     })
 
     const { user } = useAuth()
+
+    const { mutate: deleteReview } = useMutation({
+        mutationFn: (reviewId: string) => Effect.runPromise(reviewApi.deleteReview(reviewId)),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['reviews', movieId] })
+            setDeletingReviewId(null)
+        }
+    })
+
+    const handleDeleteClick = (reviewId: string) => {
+        if (window.confirm('리뷰를 삭제하시겠습니까?')) {
+            deleteReview(reviewId)
+        }
+    }
 
     if (isLoading) return <Loading />
     if (error) return <ErrorComponent code="FetchError" message="리뷰를 불러오는데 실패했습니다" />
@@ -56,7 +72,7 @@ export default function ReviewSection({ movieId }: ReviewSectionProps) {
                                                     </button>
                                                     <button
                                                         className="deleteButton"
-                                                        onClick={() => {/* 삭제 로직은 다음 단계에서 구현 */ }}
+                                                        onClick={() => handleDeleteClick(review.id)}
                                                     >
                                                         삭제
                                                     </button>
