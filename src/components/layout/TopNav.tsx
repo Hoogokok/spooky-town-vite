@@ -6,12 +6,23 @@ import { useLogout } from '../../hooks/useLogout'
 import { useScroll } from '../../hooks/useScroll'
 import { useProfile } from '../../hooks/useProfile'
 import ProfileAvatar from '../common/ProfileAvatar'
+import Dropdown from '../common/Dropdown'
 
 function TopNav() {
     const { isScrolled } = useScroll()
     const { isAuthenticated } = useAuth()
     const { data: profile } = useProfile()
     const logout = useLogout()
+
+    const profileTrigger = (
+        <button className="menu-item">
+            <ProfileAvatar
+                imageUrl={profile?.imageUrl}
+                size="sm"
+            />
+            <span>{profile?.name || '프로필'}</span>
+        </button>
+    )
 
     return (
         <nav className={`topNav ${isScrolled ? 'scrolled' : ''}`}>
@@ -29,19 +40,20 @@ function TopNav() {
                         </li>
                     ))}
                     {isAuthenticated ? (
-                        <div className="auth-menu">
-                            <Link to="/profile" className="menu-item">
-                                <ProfileAvatar
-                                    imageUrl={profile?.imageUrl}
-                                    size="sm"
-                                />
-                                <span>프로필</span>
+                        <Dropdown trigger={profileTrigger}>
+                            <Link to="/profile" className="dropdown-item">
+                                <img src="/icons/profile.svg" alt="" className="icon" />
+                                <span>프로필 설정</span>
                             </Link>
-                            <button onClick={() => logout.mutate()} className="menu-item">
-                                <img src={authItems.logout.icon} alt={authItems.logout.alt} className="icon" />
+                            <div className="dropdown-divider" />
+                            <button
+                                onClick={() => logout.mutate()}
+                                className="dropdown-item"
+                            >
+                                <img src={authItems.logout.icon} alt="" className="icon" />
                                 <span>{authItems.logout.label}</span>
                             </button>
-                        </div>
+                        </Dropdown>
                     ) : (
                         <Link to={authItems.login.href} className="menu-item">
                             <img src={authItems.login.icon} alt={authItems.login.alt} className="icon" />
