@@ -1,4 +1,4 @@
-import { StreamingMovie } from '../types/movie'
+import { StreamingMovie } from "../types/api/movie"
 
 const generateMockMovies = (page: number, itemsPerPage: number = 18): StreamingMovie[] => {
     const startIndex = (page - 1) * itemsPerPage
