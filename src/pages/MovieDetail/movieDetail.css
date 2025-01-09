@@ -1,8 +1,10 @@
- /* 페이지 컨테이너 */
+/* 페이지 컨테이너 */
 .movieDetailContainer {
     padding: var(--spacing-4);
+    padding-top: calc(120px + var(--spacing-4)); /* TopNav 높이 + 기본 패딩 */
     max-width: var(--breakpoint-desktop);
     margin: 0 auto;
+    width: 100%;
 }
 
 /* 상단 영역 - 포스터와 기본 정보 */
@@ -97,6 +99,12 @@
 
     .releaseDate {
         text-align: center;
+    }
+
+    .movieDetailContainer {
+        padding: var(--spacing-2);
+        padding-top: calc(var(--spacing-header-mobile) + var(--spacing-4));
+        padding-bottom: calc(var(--height-mobile-nav) + var(--spacing-4));
     }
 }
 

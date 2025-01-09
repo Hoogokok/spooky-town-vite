@@ -33,7 +33,7 @@ function MovieDetail() {
             message="영화 정보를 불러오는데 실패했습니다"
         />
     }
-
+    console.log(movie)
     return (
         <div className="movieDetailContainer">
             <div className="movieHeader">
@@ -53,11 +53,11 @@ function MovieDetail() {
                         </p>
                     )}
                     <p className="overview">{movie.overview}</p>
-                    {'streamingProviders' in movie && movie.streamingProviders.length > 0 && (
+                    {movie.watchProviders && movie.watchProviders.length > 0 && (
                         <div className="streamingServices">
                             <h2 className="streamingTitle">시청 가능한 곳</h2>
                             <div className="providerList">
-                                {movie.streamingProviders.map((provider) => (
+                                {movie.watchProviders?.map((provider: string) => (
                                     <span key={provider} className="provider">
                                         {provider}
                                     </span>
