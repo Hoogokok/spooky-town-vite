@@ -1,0 +1,57 @@
+.reviewSection {
+    margin-top: var(--spacing-8);
+    padding: var(--spacing-4);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+}
+
+.reviewTitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-4);
+}
+
+.reviewList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.reviewItem {
+    padding: var(--spacing-4);
+    background-color: var(--color-background);
+    border-radius: var(--radius-md);
+}
+
+.reviewHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-2);
+}
+
+.reviewAuthor {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+}
+
+.reviewRating {
+    color: var(--color-primary);
+}
+
+.reviewDate {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-left: auto;
+}
+
+.reviewContent {
+    color: var(--color-text-primary);
+    line-height: var(--line-height-normal);
+}
+
+.noReviews {
+    color: var(--color-text-secondary);
+    text-align: center;
+    padding: var(--spacing-4);
+} 
