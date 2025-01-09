@@ -17,7 +17,7 @@ function MovieList({ movies }: MovieListProps) {
     return (
         <div className="streamingMovieList">
             {movieRows.map((row, rowIndex) => (
-                <div key={rowIndex} className="movieRow">
+                <div key={rowIndex} className="streamingMovieRow">
                     {row.map((movie) => (
                         <Link to={`/movie/${movie.id}/streaming`} key={movie.id} className="streamingMovieItem">
                             <div className="streamingMoviePosterContainer">

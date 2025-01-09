@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.movieRow {
+.streamingMovieRow {
     display: flex;
     gap: var(--spacing-4);
     overflow-x: auto;
