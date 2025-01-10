@@ -1,0 +1,9 @@
+<svg width="200" height="300" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- 어두운 배경 -->
+    <rect width="200" height="300" fill="#1a1a1a"/>
+    <!-- 영화 릴 아이콘 -->
+    <path d="M100 130c-11 0-20 9-20 20s9 20 20 20 20-9 20-20-9-20-20-20zm0 30c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z" fill="#666"/>
+    <path d="M160 80H40c-11 0-20 9-20 20v100c0 11 9 20 20 20h120c11 0 20-9 20-20V100c0-11-9-20-20-20zm0 120H40V100h120v100z" fill="#666"/>
+    <!-- "No Poster" 텍스트 -->
+    <text x="100" y="200" font-family="Arial" font-size="16" fill="#999" text-anchor="middle">No Poster</text>
+</svg> 
