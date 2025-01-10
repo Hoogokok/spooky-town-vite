@@ -31,14 +31,18 @@ const parseResponse = <T>(response: Response) => Effect.tryPromise({
         if (Array.isArray(data)) {
             return data.map(item => ({
                 ...item,
-                posterPath: import.meta.env.VITE_POSTER_URL + item.posterPath
+                posterPath: item.posterPath
+                    ? import.meta.env.VITE_POSTER_URL + item.posterPath
+                    : '/default-poster.svg'
             })) as T
         }
 
         // 단일 영화 정보도 포스터 URL 처리
         return {
             ...data,
-            posterPath: import.meta.env.VITE_POSTER_URL + data.posterPath
+            posterPath: data.posterPath
+                ? import.meta.env.VITE_POSTER_URL + data.posterPath
+                : '/default-poster.svg'
         } as T
     },
     catch: () => new FetchError('응답을 파싱하는데 실패했습니다')
